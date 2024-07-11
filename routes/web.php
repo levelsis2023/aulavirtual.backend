@@ -13,6 +13,11 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('maestros', 'MaestroController@index');
+    $router->post('maestros', 'MaestroController@store');
+    $router->get('maestros/{id}', 'MaestroController@show');
+    $router->put('maestros/{id}', 'MaestroController@update');
+    $router->delete('maestros/{id}', 'MaestroController@destroy');
+
 });
