@@ -15,8 +15,8 @@ return response()->json($maestros);
 public function store(Request $request)
 {
     $this->validate($request, [
-        'name' => 'required|string|max:255',
-        'parent_id' => 'nullable|exists:maestros,id'
+        'name' => 'required|string|max:255'
+
     ]);
     $maestro = Maestro::create($request->all());
     return response()->json($maestro, 201);

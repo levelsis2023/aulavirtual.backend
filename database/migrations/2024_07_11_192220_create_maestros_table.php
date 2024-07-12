@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('maestros', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->number('parent_id')->nullable();
+            $table->integer('parent_id')->nullable();
             $table->string('description');
             $table->timestamps();
 
