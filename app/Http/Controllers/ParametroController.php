@@ -38,6 +38,7 @@ class ParametroController extends Controller
         if(is_null($parametro)){
             return response()->json('Record not found', 404);
         }
+        $parametro->update($request->all());
         return response()->json($parametro, 200);
     }
     public function destroy($id){

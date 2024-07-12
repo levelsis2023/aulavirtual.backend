@@ -26,4 +26,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('parametros/{id}', 'ParametroController@update');
     $router->delete('parametros/{id}', 'ParametroController@destroy');
 
+    $router->get('instituciones', 'InstitucioneController@index');
+    $router->post('instituciones', 'InstitucioneController@store');
+    $router->get('instituciones/{id}', 'InstitucioneController@show');
+    $router->put('instituciones/{id}', 'InstitucioneController@update');
+    $router->delete('instituciones/{id}', 'InstitucioneController@destroy');
+
 });
