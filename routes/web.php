@@ -20,4 +20,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('maestros/{id}', 'MaestroController@update');
     $router->delete('maestros/{id}', 'MaestroController@destroy');
 
+    $router->get('parametros', 'ParametroController@index');
+    $router->post('parametros', 'ParametroController@store');
+    $router->get('parametros/{id}', 'ParametroController@show');
+    $router->put('parametros/{id}', 'ParametroController@update');
+    $router->delete('parametros/{id}', 'ParametroController@destroy');
+
 });
