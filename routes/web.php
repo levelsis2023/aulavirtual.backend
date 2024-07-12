@@ -13,7 +13,7 @@
 |
 */
 
-$router->group(['prefix' => 'api/'], function () use ($router) {
+$router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('maestros', 'MaestroController@index');
     $router->post('maestros', 'MaestroController@store');
     $router->get('maestros/{id}', 'MaestroController@show');
