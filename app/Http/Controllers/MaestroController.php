@@ -8,7 +8,7 @@ class MaestroController extends Controller
 {
 public function index()
 {
-$maestros = Maestro::with('children')->whereNull('parent_id')->get();
+$maestros = Maestro::all();
 return response()->json($maestros);
 }
 
