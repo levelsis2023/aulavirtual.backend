@@ -13,7 +13,7 @@
 |
 */
 
-$router->group(['prefix' => 'api'], function () use ($router) {
+$router->group(['prefix' => 'api', 'middleware' => 'cors'], function () use ($router) {
     $router->get('maestros', 'MaestroController@index');
     $router->post('maestros', 'MaestroController@store');
     $router->get('maestros/{id}', 'MaestroController@show');
@@ -31,5 +31,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('instituciones/{id}', 'InstitucioneController@show');
     $router->put('instituciones/{id}', 'InstitucioneController@update');
     $router->delete('instituciones/{id}', 'InstitucioneController@destroy');
+
+    $router->get('carreras', 'CarreraController@index');
+    $router->post('carreras', 'CarreraController@store');
+    $router->get('carreras/{id}', 'CarreraController@show');
+    $router->put('carreras/{id}', 'CarreraController@update');
+    $router->delete('carreras/{id}', 'CarreraController@destroy');
 
 });
