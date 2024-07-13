@@ -7,9 +7,16 @@ use Illuminate\Http\Request;
 
 class ParametroController extends Controller
 {
-    public function index(){
-        $Parametros = TGParametro::all();
-        return response()->json($Parametros);
+    public function index(Request $request){
+        if(!$request){
+            return response()->json('Send the parameter of domain');
+        }
+        $id = $request->query('dominio');
+        $Parametros = TGParametro::find($id);
+        if($Parametros){
+            return response()->json($Parametros);
+        }
+        return response()->json('Record not found', 404);
     }
     public function store(Request $request){
         $this->validate($request, [
@@ -17,6 +24,7 @@ class ParametroController extends Controller
             'tx_abreviatura' => 'required|string|max:255',
             'nu_item' => 'required|integer',
             'tx_item_description' => 'required|string|max:255',
+            'dominio' => 'required|string|max:255',
         ]);
         $parametro = TGParametro::create($request->all());
         return response()->json($parametro, 201);
@@ -33,6 +41,7 @@ class ParametroController extends Controller
             'tx_nombre' => 'required|string|max:255',
             'tx_abreviatura' => 'required|string|max:255',
             'nu_item' => 'required|integer',
+            'dominio' => 'required|string|max:255',
         ]);
         $parametro = TGParametro::find($id);
         if(is_null($parametro)){

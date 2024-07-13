@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Institucione extends Model
 {
-    protected  $fillable = ['nombre','siglas', 'logotipo'];
+    protected  $fillable = ['nombre','siglas', 'logotipo', 'dominio'];
 }
