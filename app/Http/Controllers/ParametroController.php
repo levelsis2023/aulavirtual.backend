@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TGParametro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ParametroController extends Controller
 {
@@ -11,8 +12,10 @@ class ParametroController extends Controller
         if(!$request){
             return response()->json('Send the parameter of domain');
         }
-        $id = $request->query('dominio');
-        $Parametros = TGParametro::find($id);
+        $dominio = $request->input('id');
+        Log::info('Valor de dominio: '.$dominio);
+
+        $Parametros = TGParametro::where('dominio', $dominio);
         if($Parametros){
             return response()->json($Parametros);
         }
