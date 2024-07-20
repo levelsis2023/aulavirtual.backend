@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string("direccion");
             $table->string("foto_perfil");
             $table->string("foto_carnet");
-            $table->string("dominio");
+            $table->addDomainId(); 
             $table->foreign('carrera_id')->references('id')->on('carreras');
             $table->foreign('ciclo_id')->references('nu_id_parametro')->on('t_g_parametros');
             $table->timestamps();

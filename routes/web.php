@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 /*
@@ -13,7 +15,11 @@
 |
 */
 
-$router->group(['prefix' => 'api', 'middleware' => 'cors'], function () use ($router) {
+
+$router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain', 'cors']], function () use ($router) {
+    $router->get('test', function(){
+        dd(1);
+    });
     $router->get('maestros', 'MaestroController@index');
     $router->post('maestros', 'MaestroController@store');
     $router->get('maestros/{id}', 'MaestroController@show');
@@ -37,5 +43,4 @@ $router->group(['prefix' => 'api', 'middleware' => 'cors'], function () use ($ro
     $router->get('carreras/{id}', 'CarreraController@show');
     $router->put('carreras/{id}', 'CarreraController@update');
     $router->delete('carreras/{id}', 'CarreraController@destroy');
-
 });

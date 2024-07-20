@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string("tx_abreviatura");
             $table->integer("nu_item");
             $table->string("tx_item_description");
-            $table->string("dominio");
             $table->timestamps();
+            $table->addDomainId(); 
+
         });
     }
 

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('siglas');
             $table->string('logotipo')->nullable();
-            $table->string("dominio")->unique();
+            $table->addDomainId(); 
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('parent_id')->nullable();
             $table->string('description');
             $table->timestamps();
-
+            $table->addDomainId(); 
 
         });
     }

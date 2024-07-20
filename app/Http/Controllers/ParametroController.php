@@ -8,20 +8,22 @@ use Illuminate\Support\Facades\Log;
 
 class ParametroController extends Controller
 {
-    public function index(Request $request){
-        if(!$request){
+    public function index(Request $request)
+    {
+        if (!$request) {
             return response()->json('Send the parameter of domain');
         }
         $dominio = $request->input('id');
-        Log::info('Valor de dominio: '.$dominio);
+        Log::info('Valor de dominio: ' . $dominio);
 
         $Parametros = TGParametro::where('dominio', $dominio);
-        if($Parametros){
+        if ($Parametros) {
             return response()->json($Parametros);
         }
         return response()->json('Record not found', 404);
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $this->validate($request, [
             'tx_nombre' => 'required|string|max:255',
             'tx_abreviatura' => 'required|string|max:255',
@@ -32,14 +34,16 @@ class ParametroController extends Controller
         $parametro = TGParametro::create($request->all());
         return response()->json($parametro, 201);
     }
-    public function show($id){
-            $parametro = TGParametro::find($id);
-            if(is_null($parametro)){
-                return response()->json('Record not found', 404);
-            }
-            return response()->json($parametro, 200);
+    public function show($id)
+    {
+        $parametro = TGParametro::find($id);
+        if (is_null($parametro)) {
+            return response()->json('Record not found', 404);
+        }
+        return response()->json($parametro, 200);
     }
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $this->validate($request, [
             'tx_nombre' => 'required|string|max:255',
             'tx_abreviatura' => 'required|string|max:255',
@@ -47,15 +51,16 @@ class ParametroController extends Controller
             'dominio' => 'required|string|max:255',
         ]);
         $parametro = TGParametro::find($id);
-        if(is_null($parametro)){
+        if (is_null($parametro)) {
             return response()->json('Record not found', 404);
         }
         $parametro->update($request->all());
         return response()->json($parametro, 200);
     }
-    public function destroy($id){
+    public function destroy($id)
+    {
         $parametro = TGParametro::find($id);
-        if(is_null($parametro)){
+        if (is_null($parametro)) {
             return response()->json('Record not found', 404);
         }
         $parametro->delete();
