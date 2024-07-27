@@ -32,15 +32,17 @@ $router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain', 
     $router->put('parametros/{id}', 'ParametroController@update');
     $router->delete('parametros/{id}', 'ParametroController@destroy');
 
-    $router->get('instituciones', 'InstitucioneController@index');
-    $router->post('instituciones', 'InstitucioneController@store');
-    $router->get('instituciones/{id}', 'InstitucioneController@show');
-    $router->put('instituciones/{id}', 'InstitucioneController@update');
-    $router->delete('instituciones/{id}', 'InstitucioneController@destroy');
-
     $router->get('carreras', 'CarreraController@index');
     $router->post('carreras', 'CarreraController@store');
     $router->get('carreras/{id}', 'CarreraController@show');
     $router->put('carreras/{id}', 'CarreraController@update');
     $router->delete('carreras/{id}', 'CarreraController@destroy');
+
+    $router->get('aula-virtual/configuracion/instituciones', 'InstitucionesController@index');
+    $router->post('aula-virtual/configuracion/instituciones', 'InstitucionesController@store');
+    $router->get('aula-virtual/configuracion/instituciones/{id}', 'InstitucionesController@show');
+    $router->put('aula-virtual/configuracion/instituciones/{id}', 'InstitucionesController@update');
+    $router->delete('aula-virtual/configuracion/instituciones/{id}', 'InstitucionesController@destroy');
+
+    
 });

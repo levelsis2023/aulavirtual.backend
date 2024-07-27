@@ -80,8 +80,7 @@ $app->configure('app');
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 $app->routemiddleware([
-    'cors' =>
-    \App\Http\Middleware\CorsMiddleware::class,
+    'cors' => \App\Http\Middleware\CorsMiddleware::class,
     'validate.domain' => App\Http\Middleware\ValidateDomainMiddleware::class,
 ]);
 /*
