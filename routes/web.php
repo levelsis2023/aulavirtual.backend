@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-$router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain']], function () use ($router) {
+$router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']], function () use ($router) {
     $router->get('test', function(){
         dd(1);
     });
