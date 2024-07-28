@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-$router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain', 'cors']], function () use ($router) {
+$router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain']], function () use ($router) {
     $router->get('test', function(){
         dd(1);
     });
@@ -43,4 +43,13 @@ $router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain', 
     $router->get('carreras/{id}', 'CarreraController@show');
     $router->put('carreras/{id}', 'CarreraController@update');
     $router->delete('carreras/{id}', 'CarreraController@destroy');
+
+
+    $router->get('cursos', 'CursoController@index');
+    $router->post('cursos', 'CursoController@store');
+    $router->get('cursos/{id}', 'CursoController@show');
+    $router->put('cursos/{id}', 'CursoController@update');
+    $router->delete('cursos/{id}', 'CursoController@destroy');
 });
+
+

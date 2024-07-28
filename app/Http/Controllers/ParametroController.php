@@ -10,15 +10,19 @@ class ParametroController extends Controller
 {
     public function index(Request $request)
     {
-        if (!$request) {
-            return response()->json('Send the parameter of domain');
-        }
-        $dominio = $request->input('id');
-        Log::info('Valor de dominio: ' . $dominio);
+       // if (!$request) {
+      //      return response()->json('Send the parameter of domain');
+      //  }
+      //  $dominio = $request->input('id');
+        $txNombre = $request->input('tx_nombre');
 
-        $Parametros = TGParametro::where('dominio', $dominio);
-        if ($Parametros) {
-            return response()->json($Parametros);
+        
+     //   Log::info('Valor de dominio: ' . $dominio);
+
+        $parametros = TGParametro::where('tx_nombre', $txNombre)->get();
+
+        if ($parametros) {
+            return response()->json($parametros);
         }
         return response()->json('Record not found', 404);
     }
@@ -42,6 +46,9 @@ class ParametroController extends Controller
         }
         return response()->json($parametro, 200);
     }
+
+  
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [

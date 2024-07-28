@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cursos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('carreras', function (Blueprint $table) {
+            $table->integer('creditos')->after('nombres'); // Añade la columna 'creditos' después de la columna 'nombres'
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cursos');
+        Schema::table('carreras', function (Blueprint $table) {
+            $table->dropColumn('creditos'); // Elimina la columna 'creditos'
+        });
     }
 };
