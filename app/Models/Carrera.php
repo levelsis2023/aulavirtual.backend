@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Carrera extends Model
 {
-    protected $fillable = ['codigo', 'nombres', 'dominio'];
+    protected $fillable = ['codigo', 'nombres', 'domain_id','creditos'];
 }
