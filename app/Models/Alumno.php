@@ -22,4 +22,21 @@ class Alumno extends Model
         'foto_carnet',
         'dominio'
     ];
+
+    public function ciclo()
+    {
+        return $this->belongsTo(Parametro::class, 'ciclo_id', 'nu_id_parametro');
+    }
+
+    // Definir la relación con el modelo Carrera
+    public function carrera()
+    {
+        return $this->belongsTo(Carrera::class, 'carrera_id');
+    }
+
+    // Definir la relación con el modelo Estado
+    public function estado()
+    {
+        return $this->belongsTo(Parametro::class, 'estado_id', 'nu_id_parametro');
+    }
 }
