@@ -79,18 +79,11 @@ $app->configure('app');
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
-/*$app->routemiddleware([
-    'cors' =>
-    \App\Http\Middleware\CorsMiddleware::class,
-    'validate.domain' => App\Http\Middleware\ValidateDomainMiddleware::class,
-]);*/
-
 
 $app->routemiddleware([
 
     'validate.domain' => App\Http\Middleware\ValidateDomainMiddleware::class,
 ]);
-
 
 $app->middleware([
     App\Http\Middleware\CorsMiddleware::class, // cors middleware

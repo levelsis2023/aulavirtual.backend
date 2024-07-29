@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-//$router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain', 'cors']], function () use ($router) {
 $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']], function () use ($router) {
     $router->get('test', function(){
         dd(1);
@@ -33,6 +31,8 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('parametros/{id}', 'ParametroController@show');
     $router->put('parametros/{id}', 'ParametroController@update');
     $router->delete('parametros/{id}', 'ParametroController@destroy');
+    $router->get('parametrosAll', 'ParametroController@indexAll');
+    $router->get('parametrosRecursive', 'ParametroController@indexRecursive');
 
     $router->get('instituciones', 'InstitucioneController@index');
     $router->post('instituciones', 'InstitucioneController@store');
@@ -47,7 +47,6 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->delete('carreras/{id}', 'CarreraController@destroy');
 
 
-
     // DOCUMENTO GESTION RALVA
     $router->get('documento-gestion', 'DocumentoGestionController@index');
     $router->post('documento-gestion', 'DocumentoGestionController@store');
@@ -55,4 +54,20 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->put('documento-gestion/{id}', 'DocumentoGestionController@update');
     $router->put('documento-gestion-eliminar/{id}', 'DocumentoGestionController@destroy');
     $router->get('documento-gestion-codigo', 'DocumentoGestionController@generateCode');
+
+    $router->get('docentes/imagen','DocenteController@imagen');
+    $router->get('docentes/listar','DocenteController@index');
+    $router->get('docentes/listar/{id}','DocenteController@show');
+    $router->post('docentes/registrar','DocenteController@store');
+    $router->put('docentes/actualizar/{id}','DocenteController@update');
+    $router->get('docentes/eliminar/{id}','DocenteController@destroy');
+
+    $router->get('cursos', 'CursoController@index');
+    $router->post('cursos', 'CursoController@store');
+    $router->get('cursos/{id}', 'CursoController@show');
+    $router->put('cursos/{id}', 'CursoController@update');
+    $router->delete('cursos/{id}', 'CursoController@destroy');
+    $router->get('cursos/carrera/{id}', 'CursoController@index');
+
 });
+
