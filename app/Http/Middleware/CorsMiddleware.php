@@ -15,6 +15,9 @@ class CorsMiddleware
      */
     public function handle($request, Closure $next)
     {
+
+        $response = $next($request);
+
         $headers = [
             'Access-Control-Allow-Origin'      => '*',
             'Access-Control-Allow-Methods'     => 'POST, GET, OPTIONS, PUT, DELETE',
@@ -27,6 +30,7 @@ class CorsMiddleware
         {
             return response()->json('{"method":"OPTIONS"}', 200, $headers);
         }
+
 
         $response = $next($request);
         foreach($headers as $key => $value)
