@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-$router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain', 'cors']], function () use ($router) {
+//$router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain', 'cors']], function () use ($router) {
+$router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']], function () use ($router) {
     $router->get('test', function(){
         dd(1);
     });
@@ -25,6 +26,7 @@ $router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain', 
     $router->get('maestros/{id}', 'MaestroController@show');
     $router->put('maestros/{id}', 'MaestroController@update');
     $router->delete('maestros/{id}', 'MaestroController@destroy');
+
 
     $router->get('parametros', 'ParametroController@index');
     $router->post('parametros', 'ParametroController@store');
@@ -43,4 +45,14 @@ $router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain', 
     $router->get('carreras/{id}', 'CarreraController@show');
     $router->put('carreras/{id}', 'CarreraController@update');
     $router->delete('carreras/{id}', 'CarreraController@destroy');
+
+
+
+    // DOCUMENTO GESTION RALVA
+    $router->get('documento-gestion', 'DocumentoGestionController@index');
+    $router->post('documento-gestion', 'DocumentoGestionController@store');
+    $router->get('documento-gestion/{id}', 'DocumentoGestionController@show');
+    $router->put('documento-gestion/{id}', 'DocumentoGestionController@update');
+    $router->put('documento-gestion-eliminar/{id}', 'DocumentoGestionController@destroy');
+    $router->get('documento-gestion-codigo', 'DocumentoGestionController@generateCode');
 });
