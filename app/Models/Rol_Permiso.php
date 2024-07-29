@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Domains extends Model
+class Rol_Permiso extends Model
 {
-    protected $table = 'domains';
-    public $timestamps = true;
+
+    protected $table="rol_permiso";
 
     protected $fillable = [
-        'nombre',
+        'idrol','idpermiso'
     ];
 }
