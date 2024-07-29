@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-$router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain', 'cors']], function () use ($router) {
+$router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']], function () use ($router) {
     $router->get('test', function(){
         dd(1);
     });
@@ -31,6 +31,8 @@ $router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain', 
     $router->get('parametros/{id}', 'ParametroController@show');
     $router->put('parametros/{id}', 'ParametroController@update');
     $router->delete('parametros/{id}', 'ParametroController@destroy');
+    $router->get('parametrosAll', 'ParametroController@indexAll');
+    $router->get('parametrosRecursive', 'ParametroController@indexRecursive');
 
     $router->get('instituciones', 'InstitucioneController@index');
     $router->post('instituciones', 'InstitucioneController@store');
@@ -50,4 +52,12 @@ $router->group(['prefix' => '{domain}/api', 'middleware' => ['validate.domain', 
     $router->post('docentes/registrar','DocenteController@store');
     $router->put('docentes/actualizar/{id}','DocenteController@update');
     $router->get('docentes/eliminar/{id}','DocenteController@destroy');
+
+    $router->get('cursos', 'CursoController@index');
+    $router->post('cursos', 'CursoController@store');
+    $router->get('cursos/{id}', 'CursoController@show');
+    $router->put('cursos/{id}', 'CursoController@update');
+    $router->delete('cursos/{id}', 'CursoController@destroy');
+    $router->get('cursos/carrera/{id}', 'CursoController@index');
+
 });
