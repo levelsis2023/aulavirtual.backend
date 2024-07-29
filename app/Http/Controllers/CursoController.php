@@ -8,9 +8,23 @@ use App\Models\Curso;
 
 class CursoController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        // Your code here
+        $courses = Curso::leftJoin('t_g_parametros as ciclo', 'ciclo.nu_id_parametro', '=', 'cursos.ciclo_id')
+        ->leftJoin('t_g_parametros as modulo_formativo', 'modulo_formativo.nu_id_parametro', '=', 'cursos.modulo_formativo_id')
+        ->leftJoin('t_g_parametros as area_de_formacion', 'area_de_formacion.nu_id_parametro', '=', 'cursos.area_de_formacion_id')
+        ->leftJoin('carreras', 'carreras.id', '=', 'cursos.carrera_id')
+        ->where('cursos.carrera_id', $id)
+        ->select(
+            'cursos.*',
+            'ciclo.tx_abreviatura as ciclo_nombre',
+            'modulo_formativo.tx_abreviatura as modulo_formativo_nombre',
+            'area_de_formacion.tx_abreviatura as area_de_formacion_nombre',
+            'carreras.nombres as carrera_nombre'
+        )
+        ->get();
+
+    return response()->json($courses);
     }
 
  
@@ -26,6 +40,7 @@ class CursoController extends Controller
             'cantidadHoras' => 'required|integer',
             'carreraId' => 'required|integer',
             'syllabus' => 'required|string',
+            'estadoId' => 'required|integer',
         ]);
     
         $curso = Curso::create([
@@ -39,6 +54,7 @@ class CursoController extends Controller
             'cantidad_de_horas' => $request->cantidadHoras,
             'carrera_id' => $request->carreraId,
             'syllabus' => $request->syllabus,
+            'estado_id' => $request->estadoId,
         ]);
     
         return response()->json($curso, 201);

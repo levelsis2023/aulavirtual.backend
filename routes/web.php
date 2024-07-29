@@ -31,6 +31,8 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('parametros/{id}', 'ParametroController@show');
     $router->put('parametros/{id}', 'ParametroController@update');
     $router->delete('parametros/{id}', 'ParametroController@destroy');
+    $router->get('parametrosAll', 'ParametroController@indexAll');
+    $router->get('parametrosRecursive', 'ParametroController@indexRecursive');
 
     $router->get('instituciones', 'InstitucioneController@index');
     $router->post('instituciones', 'InstitucioneController@store');
@@ -50,6 +52,8 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('cursos/{id}', 'CursoController@show');
     $router->put('cursos/{id}', 'CursoController@update');
     $router->delete('cursos/{id}', 'CursoController@destroy');
+    $router->get('cursos/carrera/{id}', 'CursoController@index');
+
 });
 
 
