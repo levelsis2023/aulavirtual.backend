@@ -46,6 +46,12 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->put('carreras/{id}', 'CarreraController@update');
     $router->delete('carreras/{id}', 'CarreraController@destroy');
 
+    $router->get('docentes/imagen','DocenteController@imagen');
+    $router->get('docentes/listar','DocenteController@index');
+    $router->get('docentes/listar/{id}','DocenteController@show');
+    $router->post('docentes/registrar','DocenteController@store');
+    $router->put('docentes/actualizar/{id}','DocenteController@update');
+    $router->get('docentes/eliminar/{id}','DocenteController@destroy');
 
     $router->get('cursos', 'CursoController@index');
     $router->post('cursos', 'CursoController@store');
@@ -55,5 +61,3 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('cursos/carrera/{id}', 'CursoController@index');
 
 });
-
-
