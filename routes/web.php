@@ -69,5 +69,14 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->delete('cursos/{id}', 'CursoController@destroy');
     $router->get('cursos/carrera/{id}', 'CursoController@index');
 
+    // CAPACITACIONES GESTION RALVA
+    $router->get('capacitaciones', 'CapacitacionController@index');
+    $router->post('capacitaciones', 'CapacitacionController@store');
+    $router->get('capacitaciones/{id}', 'CapacitacionController@show');
+    $router->put('capacitaciones/{id}', 'CapacitacionController@update');
+    $router->put('capacitaciones-eliminar/{id}', 'CapacitacionController@destroy');
+    $router->get('capacitaciones-codigo', 'CapacitacionController@generateCode');
+    $router->get('capacitaciones-docentes', 'CapacitacionController@listarDocentes');
+
 });
 
