@@ -69,14 +69,32 @@ class AlumnoController extends Controller
             "foto_perfil"=>$request->input('fotoPerfil'),
             'fecha_nacimiento' => $request->input('fechaNacimiento'),   
             'direccion' => $request->input('direccion'),
+            'domain_id' => $request->input('domain_id'),
             
         ];
         //if exists request->input('id') then update else insert
         if($request->input('id')){
-            $alumno = Alumno::where('id', $request->input('id'))->first();
+            $alumno = DB::table('alumnos')->where('id', $request->input('id'))->first();
             if ($alumno) {
-                $alumno->update($request->all());
-                return response()->json($alumno, 201);
+                $alumno = DB::table('alumnos')->where('id', $request->input('id'))->update(
+                    [
+                        "codigo"=>$request->input('codigo'),
+                        "nombres"=>$request->input('nombres'),
+                        "apellidos"=>$request->input('apellidos'),
+                        "celular"=>$request->input('nroCelular'),
+                        "email"=>$request->input('email'),
+                        "carrera_id"=>$request->input('carreraId'),
+                        "ciclo_id"=>$request->input('cicloId'),
+                        "dni"=>$request->input('numeroDocumento'),
+                        "genero"=>"masculino",
+                        "foto_carnet"=>$request->input('fotoCarnet'),
+                        "foto_perfil"=>$request->input('fotoPerfil'),
+                        'fecha_nacimiento' => $request->input('fechaNacimiento'),   
+                        'direccion' => $request->input('direccion'),
+                        'domain_id' => $request->input('domain_id'),
+                    ]
+                );
+                return response()->json("Record updated", 201);
             }
             return response()->json('Record not found', 404);
         }else{
