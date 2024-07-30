@@ -16,7 +16,8 @@ class Curso extends Model
         'carrera_id',
         'modulo_formativo_id',
         'area_de_formacion_id',
-        'syllabus'
+        'syllabus',
+        'estado_id'
     ];
 
     // Definir la relación con el modelo Ciclo
@@ -41,5 +42,11 @@ class Curso extends Model
     public function carrera()
     {
         return $this->belongsTo(Carrera::class, 'carrera_id');
+    }
+
+    // Definir la relación con el modelo Estado
+    public function estado()
+    {
+        return $this->belongsTo(Parametro::class, 'estado_id', 'nu_id_parametro');
     }
 }

@@ -26,11 +26,14 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->put('maestros/{id}', 'MaestroController@update');
     $router->delete('maestros/{id}', 'MaestroController@destroy');
 
+
     $router->get('parametros', 'ParametroController@index');
     $router->post('parametros', 'ParametroController@store');
     $router->get('parametros/{id}', 'ParametroController@show');
     $router->put('parametros/{id}', 'ParametroController@update');
     $router->delete('parametros/{id}', 'ParametroController@destroy');
+    $router->get('parametrosAll', 'ParametroController@indexAll');
+    $router->get('parametrosRecursive', 'ParametroController@indexRecursive');
 
     $router->get('instituciones', 'InstitucioneController@index');
     $router->post('instituciones', 'InstitucioneController@store');
@@ -44,6 +47,21 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->put('carreras/{id}', 'CarreraController@update');
     $router->delete('carreras/{id}', 'CarreraController@destroy');
 
+
+    // DOCUMENTO GESTION RALVA
+    $router->get('documento-gestion', 'DocumentoGestionController@index');
+    $router->post('documento-gestion', 'DocumentoGestionController@store');
+    $router->get('documento-gestion/{id}', 'DocumentoGestionController@show');
+    $router->put('documento-gestion/{id}', 'DocumentoGestionController@update');
+    $router->put('documento-gestion-eliminar/{id}', 'DocumentoGestionController@destroy');
+    $router->get('documento-gestion-codigo', 'DocumentoGestionController@generateCode');
+
+    $router->get('docentes/imagen','DocenteController@imagen');
+    $router->get('docentes/listar','DocenteController@index');
+    $router->get('docentes/listar/{id}','DocenteController@show');
+    $router->post('docentes/registrar','DocenteController@store');
+    $router->put('docentes/actualizar/{id}','DocenteController@update');
+    $router->get('docentes/eliminar/{id}','DocenteController@destroy');
 
     $router->get('cursos', 'CursoController@index');
     $router->post('cursos', 'CursoController@store');
@@ -68,7 +86,19 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
 
     $router->get('permisos', 'PermisoController@index');
     $router->post('permiso/guardar', 'PermisoController@store');
+    $router->get('cursos/carrera/{id}', 'CursoController@index');
+
+
+    $router->get('grupo-de-evaluaciones/{curso_id}', 'GrupoDeEvaluacionesController@index');
+    $router->post('grupo-de-evaluaciones', 'GrupoDeEvaluacionesController@store');
+    $router->put('grupo-de-evaluaciones/{id}', 'GrupoDeEvaluacionesController@update');
+    $router->delete('grupo-de-evaluaciones/{id}', 'GrupoDeEvaluacionesController@destroy');
+
+    $router->get('alumnos', 'AlumnoController@index');
+    $router->post('alumnos', 'AlumnoController@store');
+    $router->get('alumnos/{id}/{dominio}', 'AlumnoController@show');
+    $router->put('alumnos/{id}/{dominio}', 'AlumnoController@update');
+    $router->delete('alumnos/{id}/{dominio}', 'AlumnoController@destroy');
 
 });
-
 

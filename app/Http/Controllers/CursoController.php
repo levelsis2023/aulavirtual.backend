@@ -8,9 +8,25 @@ use App\Models\Curso;
 
 class CursoController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        // Your code here
+        $courses = Curso::leftJoin('t_g_parametros as ciclo', 'ciclo.nu_id_parametro', '=', 'cursos.ciclo_id')
+        ->leftJoin('t_g_parametros as modulo_formativo', 'modulo_formativo.nu_id_parametro', '=', 'cursos.modulo_formativo_id')
+        ->leftJoin('t_g_parametros as area_de_formacion', 'area_de_formacion.nu_id_parametro', '=', 'cursos.area_de_formacion_id')
+        ->leftJoin('t_g_parametros as estado', 'estado.nu_id_parametro', '=', 'cursos.estado_id')
+        ->leftJoin('carreras', 'carreras.id', '=', 'cursos.carrera_id')
+        ->where('cursos.carrera_id', $id)
+        ->select(
+            'cursos.*',
+            'ciclo.tx_abreviatura as ciclo_nombre',
+            'modulo_formativo.tx_abreviatura as modulo_formativo_nombre',
+            'area_de_formacion.tx_abreviatura as area_de_formacion_nombre',
+            'carreras.nombres as carrera_nombre',
+            'estado.tx_abreviatura as estado_nombre'
+        )
+        ->get();
+
+    return response()->json($courses);
     }
 
  
@@ -26,6 +42,7 @@ class CursoController extends Controller
             'cantidadHoras' => 'required|integer',
             'carreraId' => 'required|integer',
             'syllabus' => 'required|string',
+            'estadoId' => 'required|integer',
         ]);
     
         $curso = Curso::create([
@@ -39,6 +56,7 @@ class CursoController extends Controller
             'cantidad_de_horas' => $request->cantidadHoras,
             'carrera_id' => $request->carreraId,
             'syllabus' => $request->syllabus,
+            'estado_id' => $request->estadoId,
         ]);
     
         return response()->json($curso, 201);
@@ -51,11 +69,61 @@ class CursoController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Your code here
+      
+        $this->validate($request, [
+            'codigo' => 'required|string|max:255',
+            'nombreCurso' => 'required|string|max:255',
+            'cicloId' => 'required|integer',
+            'areaFormacionId' => 'required|integer',
+            'moduloFormativoId' => 'required|integer',
+            'cantidadCreditos' => 'required|integer',
+            'porcentajeCreditos' => 'required|integer',
+            'cantidadHoras' => 'required|integer',
+            'carreraId' => 'required|integer',
+            'syllabus' => 'required|string',
+            'estadoId' => 'required|integer',
+        ]);
+        
+         
+        $curso = Curso::findOrFail($id);
+
+      
+    
+        $curso->update([
+            'codigo' => $request->codigo,
+            'nombre' => $request->nombreCurso,
+            'ciclo_id' => $request->cicloId,
+            'area_de_formacion_id' => $request->areaFormacionId,
+            'modulo_formativo_id' => $request->moduloFormativoId,
+            'cantidad_de_creditos' => $request->cantidadCreditos,
+            'porcentaje_de_creditos' => $request->porcentajeCreditos,
+            'cantidad_de_horas' => $request->cantidadHoras,
+            'carrera_id' => $request->carreraId,
+            'syllabus' => $request->syllabus,
+            'estado_id' => $request->estadoId,
+        ]);
+    
+        return response()->json($curso, 200);
     }
 
     public function destroy($id)
     {
-        // Your code here
+        // Busca el curso por su ID
+    $curso = Curso::find($id);
+
+    // Verifica si el curso existe
+    if (!$curso) {
+        return response()->json([
+            'message' => 'Curso no encontrado'
+        ], 404);
+    }
+
+    // Elimina el curso
+    $curso->delete();
+
+    // Devuelve una respuesta de éxito
+    return response()->json([
+        'message' => 'Curso eliminado exitosamente'
+    ], 200);
     }
 }

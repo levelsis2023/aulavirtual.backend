@@ -29,7 +29,11 @@ return new class extends Migration
             $table->foreign('modulo_formativo_id')->references('nu_id_parametro')->on('t_g_parametros');
             $table->unsignedBigInteger("area_de_formacion_id");
             $table->foreign('area_de_formacion_id')->references('nu_id_parametro')->on('t_g_parametros');
+            $table->unsignedBigInteger("estado_id");
+            $table->foreign('estado_id')->references('nu_id_parametro')->on('t_g_parametros');
+     
             $table->timestamps();
+            
         });
     }
 

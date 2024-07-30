@@ -11,5 +11,11 @@ class Domains extends Model
 
     protected $fillable = [
         'nombre',
+        'domain_id',
     ];
+
+    public function parametros()
+    {
+        return $this->hasMany(Parametro::class);
+    }
 }
