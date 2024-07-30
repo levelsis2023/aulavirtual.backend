@@ -14,8 +14,4 @@ class Domains extends Model
         'domain_id',
     ];
 
-    public function parametros()
-    {
-        return $this->hasMany(Parametro::class);
-    }
 }
