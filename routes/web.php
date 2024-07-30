@@ -69,6 +69,12 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->delete('cursos/{id}', 'CursoController@destroy');
     $router->get('cursos/carrera/{id}', 'CursoController@index');
 
+
+    $router->get('grupo-de-evaluaciones/{curso_id}', 'GrupoDeEvaluacionesController@index');
+    $router->post('grupo-de-evaluaciones', 'GrupoDeEvaluacionesController@store');
+    $router->put('grupo-de-evaluaciones/{id}', 'GrupoDeEvaluacionesController@update');
+    $router->delete('grupo-de-evaluaciones/{id}', 'GrupoDeEvaluacionesController@destroy');
+
     $router->get('alumnos', 'AlumnoController@index');
     $router->post('alumnos', 'AlumnoController@store');
     $router->get('alumnos/{id}/{dominio}', 'AlumnoController@show');
