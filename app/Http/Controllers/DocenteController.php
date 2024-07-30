@@ -12,17 +12,23 @@ class DocenteController extends Controller
     public function index(Request $request)
     {
         $docente = Docente::all();
-        foreach($docente as $item){
-            // Obtén el contenido del archivo y el tipo MIME
-            $fileContent = file_get_contents($item->foto);
-            $mimeType = mime_content_type($item->foto);
-
-            // Convierte el contenido a Base64
-            $base64Content = base64_encode($fileContent);
-            
-            // Agrega el tipo MIME al principio de la cadena Base64
-            $item->foto = 'data:' . $mimeType . ';base64,' . $base64Content;
-        }        
+        foreach ($docente as $item) {
+            if (!empty($item->foto) && file_exists($item->foto) && is_readable($item->foto)) {
+                // Obtén el contenido del archivo y el tipo MIME
+                $fileContent = file_get_contents($item->foto);
+                $mimeType = mime_content_type($item->foto);
+    
+                // Convierte el contenido a Base64
+                $base64Content = base64_encode($fileContent);
+    
+                // Agrega el tipo MIME al principio de la cadena Base64
+                $item->foto = 'data:' . $mimeType . ';base64,' . $base64Content;
+            } else {
+                // Maneja el caso donde la foto no existe
+                // Por ejemplo, asigna una cadena vacía, un mensaje de error o una imagen predeterminada
+                $item->foto = null; // O 'foto no disponible' o la URL de una imagen predeterminada
+            }
+        }
         return response()->json(['Exito' => true, 'Datos' => $docente], 200);
     }
 
@@ -95,7 +101,7 @@ class DocenteController extends Controller
             $imageName = uniqid() . '.' . $imageType;
 
             // Definir la ruta donde se guardará la imagen
-            $imagePath = storage_path('app\\public\\docentes\\' . $imageName);
+            $imagePath = storage_path($imageName);
 
             // Crear el directorio si no existe
             if (!file_exists(dirname($imagePath))) {
