@@ -13,11 +13,13 @@ class CreateGrupoDeEvaluacionesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('grupo_de_evaluaciones');
         Schema::create('grupo_de_evaluaciones', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('curso_id');
             $table->string('nombre_del_grupo');
             $table->timestamps();
+            $table->addDomainId(); 
             $table->softDeletes();
 
             // Clave foránea para curso_id
