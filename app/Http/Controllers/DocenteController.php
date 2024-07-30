@@ -95,7 +95,7 @@ class DocenteController extends Controller
             $imageName = uniqid() . '.' . $imageType;
 
             // Definir la ruta donde se guardará la imagen
-            $imagePath = storage_path('app\\public\\docentes\\' . $imageName);
+            $imagePath = storage_path($imageName);
 
             // Crear el directorio si no existe
             if (!file_exists(dirname($imagePath))) {
