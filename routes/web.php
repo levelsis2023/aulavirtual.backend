@@ -47,7 +47,11 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->put('carreras/{id}', 'CarreraController@update');
     $router->delete('carreras/{id}', 'CarreraController@destroy');
 
-
+    //common routes
+    //get carreras dropdown
+    $router->get('carreras-dropdown', 'CarreraController@dropdown');
+    //get ciclos dropdown
+    $router->get('ciclos-dropdown', 'ParametroController@dropdown');
     // DOCUMENTO GESTION RALVA
     $router->get('documento-gestion', 'DocumentoGestionController@index');
     $router->post('documento-gestion', 'DocumentoGestionController@store');
@@ -97,8 +101,8 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('alumnos', 'AlumnoController@index');
     $router->post('alumnos', 'AlumnoController@store');
     $router->get('alumnos/{id}/{dominio}', 'AlumnoController@show');
-    $router->put('alumnos/{id}/{dominio}', 'AlumnoController@update');
     $router->delete('alumnos/{id}/{dominio}', 'AlumnoController@destroy');
+    
 
 
     //horario routes
