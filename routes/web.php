@@ -100,5 +100,11 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->put('alumnos/{id}/{dominio}', 'AlumnoController@update');
     $router->delete('alumnos/{id}/{dominio}', 'AlumnoController@destroy');
 
+
+    $router->post('evaluaciones', 'EvaluacionesController@store');
+    $router->get('evaluaciones/{id}', 'EvaluacionesController@index');
+    $router->put('evaluaciones/{id}', 'EvaluacionesController@update');
+    $router->delete('evaluaciones/{id}', 'EvaluacionesController@destroy');
+
 });
 
