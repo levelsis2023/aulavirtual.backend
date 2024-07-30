@@ -57,10 +57,10 @@ class EmpresaController extends Controller
             'name' => 'required|string|max:255',
             'domain' => 'required|string|max:255',
             'database' => 'required|string|max:255',
-            'status' => 'required|numeric',
+            'status' => 'required',
             'rol_id' => 'required',
         ]);
-
+        
         $domain = Domains::find($request->domain_id);
         $domain->nombre = $request->domain;
         $domain->save();
@@ -70,7 +70,7 @@ class EmpresaController extends Controller
         $empresa->database = $request->database;
         $empresa->status = $request->status;
         $empresa->rol_id = $request->rol_id;
-        $empresa->domain_id = $domain->domain_id;
+        $empresa->domain_id = $domain->id;
 
         $empresa->save();
 
