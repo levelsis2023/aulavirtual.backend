@@ -6,6 +6,7 @@ use App\Models\TGParametro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 class ParametroController extends Controller
 {
     public function index(Request $request)
@@ -110,5 +111,12 @@ class ParametroController extends Controller
         ->get();
 
     return response()->json($parametros);
+    }
+    public function dropdown()      
+    {
+        //select TXT_NOMBRE ,NU_ID_PARAMETRO from tg_parametros 
+        $parametros = DB::table('t_g_parametros')
+        ->select('tx_nombre', 'nu_id_parametro')->get();
+        return response()->json($parametros);
     }
 }
