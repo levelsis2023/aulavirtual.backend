@@ -81,5 +81,17 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->put('alumnos/{id}/{dominio}', 'AlumnoController@update');
     $router->delete('alumnos/{id}/{dominio}', 'AlumnoController@destroy');
 
+
+    //horario routes
+    $router->get('horario', 'HorarioController@index');
+    $router->post('horario', 'HorarioController@store');
+    $router->get('horario/{id}', 'HorarioController@show');
+    //participantes routes
+    $router->get('participantes/{domain_id}/{curso_id}', 'ParticipanteController@show');
+    $router->post('participantes', 'ParticipanteController@store');
+    //asistencia routes
+    $router->post('asistencia-curso', 'AsistenciaCursoController@show');
+    $router->post('asistencia-curso-marcar', 'AsistenciaCursoController@store');
+
 });
 
