@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']], function () use ($router) {
+
     $router->get('test', function(){
         dd(1);
     });
@@ -67,6 +68,24 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('cursos/{id}', 'CursoController@show');
     $router->put('cursos/{id}', 'CursoController@update');
     $router->delete('cursos/{id}', 'CursoController@destroy');
+
+    $router->get('roles', 'RolController@index');
+    $router->post('rol/guardar', 'RolController@store');
+    $router->get('rol/{id}', 'RolController@show');
+    $router->put('rol/guardar/{id}', 'RolController@update');
+    $router->delete('rol/eliminar/{id}', 'RolController@destroy');
+
+    $router->post('rol/guardar-permiso', 'RolController@guardarPermiso');
+    $router->get('rol/get-rol-permiso/{id}', 'RolController@getRolPermisos');
+    
+    $router->get('empresas', 'EmpresaController@index');
+    $router->post('empresa/guardar', 'EmpresaController@store');
+    $router->get('empresa/{id}', 'EmpresaController@show');
+    $router->put('empresa/guardar/{id}', 'EmpresaController@update');
+    $router->delete('empresa/eliminar/{id}', 'EmpresaController@destroy');
+
+    $router->get('permisos', 'PermisoController@index');
+    $router->post('permiso/guardar', 'PermisoController@store');
     $router->get('cursos/carrera/{id}', 'CursoController@index');
 
     // CAPACITACIONES GESTION RALVA
@@ -77,6 +96,33 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->put('capacitaciones-eliminar/{id}', 'CapacitacionController@destroy');
     $router->get('capacitaciones-codigo', 'CapacitacionController@generateCode');
     $router->get('capacitaciones-docentes', 'CapacitacionController@listarDocentes');
+
+    $router->get('grupo-de-evaluaciones/{curso_id}', 'GrupoDeEvaluacionesController@index');
+    $router->post('grupo-de-evaluaciones', 'GrupoDeEvaluacionesController@store');
+    $router->put('grupo-de-evaluaciones/{id}', 'GrupoDeEvaluacionesController@update');
+    $router->delete('grupo-de-evaluaciones/{id}', 'GrupoDeEvaluacionesController@destroy');
+
+    $router->get('alumnos', 'AlumnoController@index');
+    $router->post('alumnos', 'AlumnoController@store');
+    $router->get('alumnos/{id}/{dominio}', 'AlumnoController@show');
+    $router->put('alumnos/{id}/{dominio}', 'AlumnoController@update');
+    $router->delete('alumnos/{id}/{dominio}', 'AlumnoController@destroy');
+
+
+    //horario routes
+    $router->get('horario', 'HorarioController@index');
+    $router->post('horario', 'HorarioController@store');
+    $router->get('horario/{id}', 'HorarioController@show');
+    //participantes routes
+    $router->get('participantes/{domain_id}/{curso_id}', 'ParticipanteController@show');
+    $router->post('participantes', 'ParticipanteController@store');
+    //asistencia routes
+    $router->post('asistencia-curso', 'AsistenciaCursoController@show');
+    $router->post('asistencia-curso-marcar', 'AsistenciaCursoController@store');
+    $router->post('evaluaciones', 'EvaluacionesController@store');
+    $router->get('evaluaciones/{id}', 'EvaluacionesController@index');
+    $router->put('evaluaciones/{id}', 'EvaluacionesController@update');
+    $router->delete('evaluaciones/{id}', 'EvaluacionesController@destroy');
 
 });
 

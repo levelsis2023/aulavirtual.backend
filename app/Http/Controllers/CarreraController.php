@@ -19,7 +19,6 @@ class CarreraController extends Controller
        //     return response()->json($carrera);
        // }
        // return response()->json('Record not found', 404);
-
        $carreras = DB::table('carreras as c')
         ->leftJoin('cursos as c2', 'c.id', '=', 'c2.carrera_id')
         ->select('c.*', DB::raw('GROUP_CONCAT(c2.nombre) as cursos'), DB::raw('SUM(c2.cantidad_de_creditos) as total_creditos'))

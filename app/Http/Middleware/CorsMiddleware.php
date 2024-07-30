@@ -15,7 +15,6 @@ class CorsMiddleware
      */
     public function handle($request, Closure $next)
     {
-
         $response = $next($request);
 
         $headers = [
@@ -32,7 +31,6 @@ class CorsMiddleware
         }
 
 
-        $response = $next($request);
         foreach($headers as $key => $value)
         {
             $response->header($key, $value);
