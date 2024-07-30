@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Domains extends Model
+class Empresa extends Model
 {
-    protected $table = 'domains';
+
+    protected $table="companies";
+
     public $timestamps = true;
 
     protected $fillable = [
-        'nombre',
-        'domain_id',
+        'id', 'name','domain','database','status','rol_id','domain_id'
     ];
-
 }

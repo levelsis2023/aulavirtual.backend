@@ -15,7 +15,11 @@ class GrupoDeEvaluaciones extends Model
     protected $fillable = [
         'curso_id',
         'nombre_del_grupo',
-        'deleted_by'
+        'deleted_by',
+        'deleted_at',
+        'created_at',
+        'updated_at',
+        'domain_id'
     ];
 
     /**
