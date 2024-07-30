@@ -118,7 +118,8 @@ class DocenteController extends Controller
                 "fecha_nacimiento"=> $request->fecha_nacimiento,
                 "edad"=> $request->edad,
                 "genero"=> $request->genero,
-                "foto"=> $imagePath
+                "foto"=> $imagePath,
+                "roles"=> $request->roles
             ]);
             return response()->json(['Exito' => true, 'Mensaje' => 'Registro exitoso'], 201);
 
@@ -144,6 +145,7 @@ class DocenteController extends Controller
             'edad' => 'required|integer|min:18',
             'genero' => 'required|string|max:100',
             // 'foto' => 'nullable|string|max:100'
+            'roles' => 'required|string|max:100',
         ]);
 
         if ($validator->fails()) {
@@ -187,7 +189,8 @@ class DocenteController extends Controller
             "fecha_nacimiento"=> $request->fecha_nacimiento,
             "edad"=> $request->edad,
             "genero"=> $request->genero,
-            "foto"=> $imagePath
+            "foto"=> $imagePath,
+            "roles" => $request->roles
         ]);
 
         return response()->json(['Exito' => true, 'Mensaje' => 'Docente actualizado correctamente'], 200);

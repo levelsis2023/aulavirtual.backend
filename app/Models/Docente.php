@@ -21,6 +21,7 @@ class Docente extends Model
         'fecha_nacimiento',
         'edad',
         'genero',
-        'foto'
+        'foto',
+        'roles'
     ];
 }
