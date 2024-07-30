@@ -8,11 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GrupoDeEvaluaciones extends Model
 {
-    use  SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'grupo_de_evaluaciones';
-
-    
 
     protected $fillable = [
         'curso_id',

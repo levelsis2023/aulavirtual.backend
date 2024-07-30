@@ -16,7 +16,11 @@ class GrupoDeEvaluacionesController extends Controller
      */
     public function index($curso_id)
     {   
-        $grupos = GrupoDeEvaluaciones::withTrashed()->where('curso_id', $curso_id)->get();
+        $grupos = GrupoDeEvaluaciones::withTrashed()
+        ->where('curso_id', $curso_id)
+        ->whereNull('deleted_at')
+        ->get();
+        
         return response()->json($grupos);
     }
 
@@ -80,8 +84,7 @@ class GrupoDeEvaluacionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'curso_id' => 'required|exists:cursos,id',
+        $validatedData = $this->validate($request, [
             'nombre_del_grupo' => 'required|string|max:255',
         ]);
 
@@ -100,6 +103,7 @@ class GrupoDeEvaluacionesController extends Controller
     {
         $grupo = GrupoDeEvaluaciones::withTrashed()->findOrFail($id);
         $grupo->delete();
-        return response()->json(null, 204);
+    
+        return response()->json(['message' => 'Curso eliminado exitosamente'], 201);
     }
 }

@@ -18,11 +18,11 @@ class CursoController extends Controller
         ->where('cursos.carrera_id', $id)
         ->select(
             'cursos.*',
-            'ciclo.tx_abreviatura as ciclo_nombre',
-            'modulo_formativo.tx_abreviatura as modulo_formativo_nombre',
-            'area_de_formacion.tx_abreviatura as area_de_formacion_nombre',
+            'ciclo.tx_item_description as ciclo_nombre',
+            'modulo_formativo.tx_item_description as modulo_formativo_nombre',
+            'area_de_formacion.tx_item_description as area_de_formacion_nombre',
             'carreras.nombres as carrera_nombre',
-            'estado.tx_abreviatura as estado_nombre'
+            'estado.tx_item_description as estado_nombre'
         )
         ->get();
 
