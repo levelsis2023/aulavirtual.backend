@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']], function () use ($router) {
+
     $router->get('test', function(){
         dd(1);
     });
@@ -67,6 +68,24 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('cursos/{id}', 'CursoController@show');
     $router->put('cursos/{id}', 'CursoController@update');
     $router->delete('cursos/{id}', 'CursoController@destroy');
+
+    $router->get('roles', 'RolController@index');
+    $router->post('rol/guardar', 'RolController@store');
+    $router->get('rol/{id}', 'RolController@show');
+    $router->put('rol/guardar/{id}', 'RolController@update');
+    $router->delete('rol/eliminar/{id}', 'RolController@destroy');
+
+    $router->post('rol/guardar-permiso', 'RolController@guardarPermiso');
+    $router->get('rol/get-rol-permiso/{id}', 'RolController@getRolPermisos');
+    
+    $router->get('empresas', 'EmpresaController@index');
+    $router->post('empresa/guardar', 'EmpresaController@store');
+    $router->get('empresa/{id}', 'EmpresaController@show');
+    $router->put('empresa/guardar/{id}', 'EmpresaController@update');
+    $router->delete('empresa/eliminar/{id}', 'EmpresaController@destroy');
+
+    $router->get('permisos', 'PermisoController@index');
+    $router->post('permiso/guardar', 'PermisoController@store');
     $router->get('cursos/carrera/{id}', 'CursoController@index');
 
 
