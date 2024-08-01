@@ -22,6 +22,8 @@ class Docente extends Model
         'edad',
         'genero',
         'foto',
-        'roles'
+        'roles',
+        'domain_id',
+        'email',
     ];
 }

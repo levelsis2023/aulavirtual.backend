@@ -93,30 +93,32 @@ class ParametroController extends Controller
     }
 
 
-    public function indexAll()
+    public function indexAll($domain_id)
     {
         $parametros = TGParametro::select('tx_nombre', 'tx_abreviatura')
         ->whereNull('deleted_at')
+        ->where('domain_id', $domain_id)
         ->groupBy('tx_nombre', 'tx_abreviatura')
         ->get();
 
     return response()->json($parametros);
     }
-    public function indexRecursive()
+    public function indexRecursive($domain_id)
     {
         $parametros = TGParametro::join('domains', 'domains.id', '=', 't_g_parametros.domain_id')
         ->select('t_g_parametros.nu_id_parametro','t_g_parametros.nu_item', 't_g_parametros.tx_item_description', 't_g_parametros.tx_abreviatura', 't_g_parametros.tx_nombre', 'domains.nombre','t_g_parametros.color')
         ->whereNull('t_g_parametros.deleted_at')
+        ->where('t_g_parametros.domain_id', $domain_id)
         ->groupBy('t_g_parametros.tx_nombre', 't_g_parametros.tx_abreviatura', 't_g_parametros.nu_item', 't_g_parametros.tx_item_description', 'domains.nombre','t_g_parametros.nu_id_parametro')
         ->get();
 
     return response()->json($parametros);
     }
-    public function dropdown()      
+    public function dropdown($domain_id)      
     {
         //select TXT_NOMBRE ,NU_ID_PARAMETRO from tg_parametros 
         $parametros = DB::table('t_g_parametros')
-        ->select('tx_nombre', 'nu_id_parametro')->get();
+        ->select('tx_nombre', 'nu_id_parametro')->where('domain_id', $domain_id)->get();
         return response()->json($parametros);
     }
 }

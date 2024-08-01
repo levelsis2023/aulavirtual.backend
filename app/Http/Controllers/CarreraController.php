@@ -67,8 +67,8 @@ class CarreraController extends Controller
         }
         return response()->json('Record not found', 404);
     }
-    public function dropDown(){
-        $carreras = DB::table('carreras')->select('id', 'nombres')->get();
+    public function dropDown($domain_id){
+        $carreras = DB::table('carreras')->select('id', 'nombres')->where('domain_id', $domain_id)->get();
         return response()->json($carreras);;
     }
 }

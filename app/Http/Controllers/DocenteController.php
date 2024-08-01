@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 use App\Models\Docente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Hash;
 
 class DocenteController extends Controller
 {
-    public function index(Request $request)
+    public function index($domain_id)
     {
-        $docente = Docente::all();
+        $docente = DB::table('docentes as d')->select('d.*')->where('d.domain_id', $domain_id)->get();
         foreach ($docente as $item) {
             if (!empty($item->foto) && file_exists($item->foto) && is_readable($item->foto)) {
                 // Obtén el contenido del archivo y el tipo MIME
@@ -110,8 +111,8 @@ class DocenteController extends Controller
 
             // Guardar la imagen en el disco
             file_put_contents($imagePath, $image);
-
-            $docente = Docente::create([
+            $docenteRol=DB::table('rol')->where('nombre', 'Docente')->first();
+            $docente = [
                 "codigo" => $request->codigo,
                 "nombres"=> $request->nombres,
                 "usuario"=> $request->usuario,
@@ -125,8 +126,20 @@ class DocenteController extends Controller
                 "edad"=> $request->edad,
                 "genero"=> $request->genero,
                 "foto"=> $imagePath,
-                "roles"=> $request->roles
-            ]);
+                "roles"=> $request->roles,
+                'domain_id' => $request->domain_id,
+                'email' => $request->email,
+            ];  
+            $docenteId=DB::table('docentes')->insertGetId($docente);
+            $userData = [
+                'name' => $request->nombres,
+                'email' => $request->email,
+                'password' => Hash::make($request->email),
+                'rol_id' => $docenteRol->id,
+                'domain_id' => $request->domain_id,
+                'docente_id' => $docenteId
+            ];
+            DB::table('users')->insert($userData);
             return response()->json(['Exito' => true, 'Mensaje' => 'Registro exitoso'], 201);
 
     }
@@ -209,5 +222,9 @@ class DocenteController extends Controller
         }
         $docente->delete();
         return response()->json(['Mensaje' => 'Docente Eliminado'], 200);
+    }
+    public function dropDown($domain_id){
+        $docentes = Docente::select('id', 'nombres')->where('domain_id', $domain_id)->get();
+        return response()->json($docentes);
     }
 }

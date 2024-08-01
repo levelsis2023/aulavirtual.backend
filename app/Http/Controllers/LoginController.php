@@ -14,9 +14,10 @@ class LoginController extends Controller
         ]);
 
         //check if the user is in the database 
-        $user = DB::table('users')->where('email', $request->email)->first();
+        $user = DB::table('users')->where('email', $request->email)->
+        first();
         if(!$user){
-            return response()->json(
+            return response()->json(    
                 ['mensaje' => 'Usuario no encontrado','status'=>404], 200);
         }
         if(Hash::check($request->password, $user->password)){

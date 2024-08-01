@@ -17,7 +17,9 @@ class Curso extends Model
         'modulo_formativo_id',
         'area_de_formacion_id',
         'syllabus',
-        'estado_id'
+        'estado_id',
+        'domain_id',
+        'docente_id'
     ];
 
     // Definir la relación con el modelo Ciclo
