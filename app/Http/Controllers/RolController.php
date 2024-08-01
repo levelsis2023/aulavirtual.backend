@@ -7,9 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Curso;
 use App\Models\Rol;
 use DateTime;
-
+use App\Traits\CommonTrait;
 class RolController extends Controller
 {
+    use CommonTrait;
     public function index()
     {
         $data = Rol::all();
@@ -81,5 +82,10 @@ class RolController extends Controller
         }
         return response()->json($rol->permisos,200);
 
+    }
+    public function getRolesDropDown()
+    {
+        $roles = $this->getRolesDropDownTrait();
+        return response()->json($roles);
     }
 }

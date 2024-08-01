@@ -20,6 +20,10 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('test', function(){
         dd(1);
     });
+    $router->get('usuarios','UsuarioController@index');
+    $router->post('usuarios','UsuarioController@store');
+    $router->post('login','LoginController@login');
+
     $router->get('maestros', 'MaestroController@index');
     $router->post('maestros', 'MaestroController@store');
     $router->get('maestros/{id}', 'MaestroController@show');
@@ -41,7 +45,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->put('instituciones/{id}', 'InstitucioneController@update');
     $router->delete('instituciones/{id}', 'InstitucioneController@destroy');
 
-    $router->get('carreras', 'CarreraController@index');
+    $router->get('carreras-list/{dominio_id}', 'CarreraController@index');
     $router->post('carreras', 'CarreraController@store');
     $router->get('carreras/{id}', 'CarreraController@show');
     $router->put('carreras/{id}', 'CarreraController@update');
@@ -78,6 +82,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('rol/{id}', 'RolController@show');
     $router->put('rol/guardar/{id}', 'RolController@update');
     $router->delete('rol/eliminar/{id}', 'RolController@destroy');
+    $router->get('roles-dropdown', 'RolController@getRolesDropDown');
 
     $router->post('rol/guardar-permiso', 'RolController@guardarPermiso');
     $router->get('rol/get-rol-permiso/{id}', 'RolController@getRolPermisos');

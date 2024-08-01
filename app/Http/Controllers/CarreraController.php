@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class CarreraController extends Controller
 {
-    public function index(Request $request){
+    public function index($dominio_id){
      //   if(!$request){
      //       return response()->json('Not parameter domain');
      //   }
@@ -23,6 +23,7 @@ class CarreraController extends Controller
         ->leftJoin('cursos as c2', 'c.id', '=', 'c2.carrera_id')
         ->select('c.*', DB::raw('GROUP_CONCAT(c2.nombre) as cursos'), DB::raw('SUM(c2.cantidad_de_creditos) as total_creditos'))
         ->groupBy('c.id')
+        ->where('c.domain_id', $dominio_id)
         ->get();
 
      return response()->json($carreras);

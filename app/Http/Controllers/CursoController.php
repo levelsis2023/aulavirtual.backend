@@ -43,6 +43,7 @@ class CursoController extends Controller
             'carreraId' => 'required|integer',
             'syllabus' => 'required|string',
             'estadoId' => 'required|integer',
+            'domain_id' => 'required',
         ]);
     
         $curso = Curso::create([
@@ -57,6 +58,7 @@ class CursoController extends Controller
             'carrera_id' => $request->carreraId,
             'syllabus' => $request->syllabus,
             'estado_id' => $request->estadoId,
+            'domain_id' => $request->domain_id,
         ]);
     
         return response()->json($curso, 201);
@@ -82,13 +84,10 @@ class CursoController extends Controller
             'carreraId' => 'required|integer',
             'syllabus' => 'required|string',
             'estadoId' => 'required|integer',
+            'domain_id' => 'required',
         ]);
         
-         
         $curso = Curso::findOrFail($id);
-
-      
-    
         $curso->update([
             'codigo' => $request->codigo,
             'nombre' => $request->nombreCurso,
@@ -101,6 +100,7 @@ class CursoController extends Controller
             'carrera_id' => $request->carreraId,
             'syllabus' => $request->syllabus,
             'estado_id' => $request->estadoId,
+            'domain_id' => $request->domain_id,
         ]);
     
         return response()->json($curso, 200);

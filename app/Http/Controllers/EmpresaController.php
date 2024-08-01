@@ -41,7 +41,7 @@ class EmpresaController extends Controller
             'rol_id' => $request->rol_id,
             'domain_id' => $domain->id
         ]);
-
+    
         return response()->json($empresa, 201);
     }
 
