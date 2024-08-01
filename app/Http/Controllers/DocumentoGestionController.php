@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 class DocumentoGestionController extends Controller
 {
-    public function index()
+    public function index($domain_id)
     {
-        $documentos = DocumentoGestion::where('estado', 1)->get();
+        $documentos = DocumentoGestion::where('estado', 1)
+        ->where('domain_id', $domain_id)->
+        get();
         if ($documentos) {
             return response()->json([
                 'responseCode' => 0,
@@ -37,7 +39,7 @@ class DocumentoGestionController extends Controller
         return response()->json($parametro, 201);
     }
 
-    public function show($id)
+    public function show($domain_id,$id)
     {
         $parametro = DocumentoGestion::find($id);
         if (is_null($parametro)) {

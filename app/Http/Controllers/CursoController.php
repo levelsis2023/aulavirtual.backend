@@ -15,6 +15,7 @@ class CursoController extends Controller
         ->leftJoin('t_g_parametros as area_de_formacion', 'area_de_formacion.nu_id_parametro', '=', 'cursos.area_de_formacion_id')
         ->leftJoin('t_g_parametros as estado', 'estado.nu_id_parametro', '=', 'cursos.estado_id')
         ->leftJoin('carreras', 'carreras.id', '=', 'cursos.carrera_id')
+        ->leftJoin('docentes', 'docentes.id', '=', 'cursos.docente_id')
         ->where('cursos.carrera_id', $id)
         ->select(
             'cursos.*',
@@ -22,7 +23,8 @@ class CursoController extends Controller
             'modulo_formativo.tx_item_description as modulo_formativo_nombre',
             'area_de_formacion.tx_item_description as area_de_formacion_nombre',
             'carreras.nombres as carrera_nombre',
-            'estado.tx_item_description as estado_nombre'
+            'estado.tx_item_description as estado_nombre',  
+            'docentes.id as docente_id'
         )
         ->get();
 
@@ -43,6 +45,7 @@ class CursoController extends Controller
             'carreraId' => 'required|integer',
             'syllabus' => 'required|string',
             'estadoId' => 'required|integer',
+            'domain_id' => 'required',
         ]);
     
         $curso = Curso::create([
@@ -57,6 +60,8 @@ class CursoController extends Controller
             'carrera_id' => $request->carreraId,
             'syllabus' => $request->syllabus,
             'estado_id' => $request->estadoId,
+            'domain_id' => $request->domain_id,
+            'docente_id' => $request->asignacionDocentesId,
         ]);
     
         return response()->json($curso, 201);
@@ -82,13 +87,10 @@ class CursoController extends Controller
             'carreraId' => 'required|integer',
             'syllabus' => 'required|string',
             'estadoId' => 'required|integer',
+            'domain_id' => 'required',
         ]);
         
-         
         $curso = Curso::findOrFail($id);
-
-      
-    
         $curso->update([
             'codigo' => $request->codigo,
             'nombre' => $request->nombreCurso,
@@ -101,6 +103,7 @@ class CursoController extends Controller
             'carrera_id' => $request->carreraId,
             'syllabus' => $request->syllabus,
             'estado_id' => $request->estadoId,
+            'domain_id' => $request->domain_id,
         ]);
     
         return response()->json($curso, 200);

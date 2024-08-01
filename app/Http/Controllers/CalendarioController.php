@@ -31,7 +31,7 @@ class CalendarioController extends Controller
         ), "[]") AS horarios')
             ->join('curso_alumno as ca', 'ca.alumno_id', '=', 'a.id')
             ->join('cursos as c', 'c.id', '=', 'ca.curso_id')
-            ->where('a.id', 1)
+            ->where('a.id', $alumnoId)
             ->groupBy('a.id', 'c.nombre', 'horarios')
             ->get();
         return response()->json($eventos);
