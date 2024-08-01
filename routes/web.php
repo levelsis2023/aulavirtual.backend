@@ -140,5 +140,14 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     //calendarios routes    
     $router->post('calendario/alumno', 'CalendarioController@getAlumnoCalendario');
     $router->post('calendario/docente', 'CalendarioController@getDocenteCalendario');
+
+
+    //preguntas routes
+    $router->get('preguntas/{domain_id}/{evaluacion_id}', 'PreguntaController@index');
+    $router->post('preguntas', 'PreguntaController@store');
+    $router->get('preguntas/{id}', 'PreguntaController@show');
+    $router->put('preguntas/{id}', 'PreguntaController@update');
+    $router->delete('preguntas/{id}', 'PreguntaController@destroy');
+
 });
 
