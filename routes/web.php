@@ -148,6 +148,6 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('preguntas/{id}', 'PreguntaController@show');
     $router->put('preguntas/{id}', 'PreguntaController@update');
     $router->delete('preguntas/{id}', 'PreguntaController@destroy');
-
+    $router->post('foros', 'ForoController@store');
 });
 

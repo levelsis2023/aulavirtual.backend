@@ -6,4 +6,5 @@ trait CommonTrait{
         $roles=DB::table('rol')->select('id','nombre')->whereNot('id',1)->get();
         return $roles;
     }
+    
 }

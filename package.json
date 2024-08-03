@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "-": "^0.0.1",
+    "@angularclass/hmr": "^3.0.0",
+    "save-dev": "^0.0.1-security"
+  }
+}
