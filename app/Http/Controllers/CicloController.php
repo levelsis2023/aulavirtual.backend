@@ -6,79 +6,76 @@ use Illuminate\Http\Request;
 
 class CicloController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index($domain_id)
     {
-        //
+        $areas = Ciclo::where('domain_id', $domain_id)
+                                ->whereNull('deleted_at')
+                                ->get();
+        return response()->json($areas);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(Request $request,$domain_id)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required|string|max:255',
+            'color' => 'string|max:255',
+        ]);
+
+        $data = $request->all();
+        $data['domain_id'] = $domain_id;
+    
+        $area = Ciclo::create($data);
+        return response()->json($area, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $area = Ciclo::find($id);
+        if (!$area) {
+            return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
+        }
+        return response()->json($area);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(Request $request, $domain_id, $id)
     {
-        //
+
+        $this->validate($request, [
+            'nombre' => 'string|max:255',
+            'color' => 'string|max:255',
+        ]);
+
+
+        $area = Ciclo::find($id);
+
+  
+        if (!$area) {
+            return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
+        }
+
+        $area->update($request->all());
+        return response()->json($area);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function destroy($domain_id, $id)
     {
-        //
+        $area = Ciclo::find($id);
+        if (!$area) {
+            return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
+        }
+
+        $area->delete();
+        return response()->json(['mensaje' => 'Área eliminada', 'status' => 200], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function restore($id)
     {
-        //
-    }
+        $area = Ciclo::withTrashed()->find($id);
+        if (!$area) {
+            return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
+        }
+
+        $area->restore();
+        return response()->json(['mensaje' => 'Área restaurada', 'status' => 200], 200);
+    } 
 }

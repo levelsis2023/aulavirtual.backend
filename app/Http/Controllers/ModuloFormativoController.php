@@ -7,67 +7,76 @@ use Illuminate\Http\Request;
 
 class ModuloFormativoController extends Controller
 {
-    public function index()
+    public function index($domain_id)
     {
-        $modulos = ModuloFormativo::all();
-        return response()->json($modulos);
+        $areas = ModuloFormativo::where('domain_id', $domain_id)
+                                ->whereNull('deleted_at')
+                                ->get();
+        return response()->json($areas);
     }
 
-    public function store(Request $request)
+    public function store(Request $request,$domain_id)
     {
         $this->validate($request, [
             'nombre' => 'required|string|max:255',
-            'area_de_formacion_id' => 'required|integer',
+            'color' => 'string|max:255',
         ]);
 
-        $modulo = ModuloFormativo::create($request->all());
-        return response()->json($modulo, 201);
+        $data = $request->all();
+        $data['domain_id'] = $domain_id;
+    
+        $area = ModuloFormativo::create($data);
+        return response()->json($area, 201);
     }
 
     public function show($id)
     {
-        $modulo = ModuloFormativo::find($id);
-        if (!$modulo) {
-            return response()->json(['mensaje' => 'Módulo no encontrado', 'status' => 404], 404);
+        $area = ModuloFormativo::find($id);
+        if (!$area) {
+            return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
         }
-        return response()->json($modulo);
+        return response()->json($area);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $domain_id, $id)
     {
+
         $this->validate($request, [
             'nombre' => 'string|max:255',
-            'area_de_formacion_id' => 'integer',
+            'color' => 'string|max:255',
         ]);
 
-        $modulo = ModuloFormativo::find($id);
-        if (!$modulo) {
-            return response()->json(['mensaje' => 'Módulo no encontrado', 'status' => 404], 404);
+
+        $area = ModuloFormativo::find($id);
+
+  
+        if (!$area) {
+            return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
         }
 
-        $modulo->update($request->all());
-        return response()->json($modulo);
+        $area->update($request->all());
+        return response()->json($area);
     }
 
-    public function destroy($id)
+    public function destroy($domain_id, $id)
     {
-        $modulo = ModuloFormativo::find($id);
-        if (!$modulo) {
-            return response()->json(['mensaje' => 'Módulo no encontrado', 'status' => 404], 404);
+        $area = ModuloFormativo::find($id);
+        if (!$area) {
+            return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
         }
 
-        $modulo->delete();
-        return response()->json(['mensaje' => 'Módulo eliminado', 'status' => 200], 200);
+        $area->delete();
+        return response()->json(['mensaje' => 'Área eliminada', 'status' => 200], 200);
     }
 
     public function restore($id)
     {
-        $modulo = ModuloFormativo::withTrashed()->find($id);
-        if (!$modulo) {
-            return response()->json(['mensaje' => 'Módulo no encontrado', 'status' => 404], 404);
+        $area = ModuloFormativo::withTrashed()->find($id);
+        if (!$area) {
+            return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
         }
 
-        $modulo->restore();
-        return response()->json(['mensaje' => 'Módulo restaurado', 'status' => 200], 200);
-    }
+        $area->restore();
+        return response()->json(['mensaje' => 'Área restaurada', 'status' => 200], 200);
+    } 
 }

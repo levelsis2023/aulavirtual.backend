@@ -159,32 +159,28 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
 
 
     //modulos formativos
-    $router->get('modulos-formativos', 'ModuloFormativoController@index');
-    $router->post('modulos-formativos', 'ModuloFormativoController@store');
-    $router->get('modulos-formativos/{id}', 'ModuloFormativoController@show');
-    $router->put('modulos-formativos/{id}', 'ModuloFormativoController@update');
-    $router->delete('modulos-formativos/{id}', 'ModuloFormativoController@destroy');
+    $router->get('modulos-formativos/{domain_id}', 'ModuloFormativoController@index');
+    $router->post('modulos-formativos/{domain_id}', 'ModuloFormativoController@store');
+    $router->put('modulos-formativos/{domain_id}/{id}', 'ModuloFormativoController@update');
+    $router->delete('modulos-formativos/{domain_id}/{id}', 'ModuloFormativoController@destroy');
 
     //ciclos
-    $router->get('ciclos', 'CicloController@index');
-    $router->post('ciclos', 'CicloController@store');
-    $router->get('ciclos/{id}', 'CicloController@show');
-    $router->put('ciclos/{id}', 'CicloController@update');
-    $router->delete('ciclos/{id}', 'CicloController@destroy');
+    $router->get('ciclos{domain_id}', 'CicloController@index');
+    $router->post('ciclos{domain_id}', 'CicloController@store');
+    $router->put('ciclos//{domain_id}/{id}', 'CicloController@update');
+    $router->delete('ciclos//{domain_id}/{id}', 'CicloController@destroy');
 
     //estado
-    $router->get('estados', 'EstadoController@index');
-    $router->post('estados', 'EstadoController@store');
-    $router->get('estados/{id}', 'EstadoController@show');
-    $router->put('estados/{id}', 'EstadoController@update');
-    $router->delete('estados/{id}', 'EstadoController@destroy');
+    $router->get('estados{domain_id}', 'EstadoController@index');
+    $router->post('estados{domain_id}', 'EstadoController@store');
+    $router->put('estados//{domain_id}/{id}', 'EstadoController@update');
+    $router->delete('estados//{domain_id}/{id}', 'EstadoController@destroy');
 
     //estado de curso
-    $router->get('estados-curso', 'EstadoCursoController@index');
-    $router->post('estados-curso', 'EstadoCursoController@store');
-    $router->get('estados-curso/{id}', 'EstadoCursoController@show');
-    $router->put('estados-curso/{id}', 'EstadoCursoController@update');
-    $router->delete('estados-curso/{id}', 'EstadoCursoController@destroy');
+    $router->get('estados-curso{domain_id}', 'EstadoCursoController@index');
+    $router->post('estados-curso{domain_id}', 'EstadoCursoController@store');
+    $router->put('estados-curso//{domain_id}/{id}', 'EstadoCursoController@update');
+    $router->delete('estados-curso//{domain_id}/{id}', 'EstadoCursoController@destroy');
 
 
 });
