@@ -10,6 +10,8 @@ class Ciclo extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'ciclos';
+
     protected $fillable = [
         'nombre',
         'color',

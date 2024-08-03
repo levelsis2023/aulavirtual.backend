@@ -165,22 +165,22 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->delete('modulos-formativos/{domain_id}/{id}', 'ModuloFormativoController@destroy');
 
     //ciclos
-    $router->get('ciclos{domain_id}', 'CicloController@index');
-    $router->post('ciclos{domain_id}', 'CicloController@store');
-    $router->put('ciclos//{domain_id}/{id}', 'CicloController@update');
-    $router->delete('ciclos//{domain_id}/{id}', 'CicloController@destroy');
+    $router->get('ciclos/{domain_id}', 'CicloController@index');
+    $router->post('ciclos/{domain_id}', 'CicloController@store');
+    $router->put('ciclos/{domain_id}/{id}', 'CicloController@update');
+    $router->delete('ciclos/{domain_id}/{id}', 'CicloController@destroy');
 
     //estado
-    $router->get('estados{domain_id}', 'EstadoController@index');
-    $router->post('estados{domain_id}', 'EstadoController@store');
-    $router->put('estados//{domain_id}/{id}', 'EstadoController@update');
-    $router->delete('estados//{domain_id}/{id}', 'EstadoController@destroy');
+    $router->get('estados/{domain_id}', 'EstadoController@index');
+    $router->post('estados/{domain_id}', 'EstadoController@store');
+    $router->put('estados/{domain_id}/{id}', 'EstadoController@update');
+    $router->delete('estados/{domain_id}/{id}', 'EstadoController@destroy');
 
     //estado de curso
-    $router->get('estados-curso{domain_id}', 'EstadoCursoController@index');
-    $router->post('estados-curso{domain_id}', 'EstadoCursoController@store');
-    $router->put('estados-curso//{domain_id}/{id}', 'EstadoCursoController@update');
-    $router->delete('estados-curso//{domain_id}/{id}', 'EstadoCursoController@destroy');
+    $router->get('estados-curso/{domain_id}', 'EstadoCursoController@index');
+    $router->post('estados-curso/{domain_id}', 'EstadoCursoController@store');
+    $router->put('estados-curso/{domain_id}/{id}', 'EstadoCursoController@update');
+    $router->delete('estados-curso/{domain_id}/{id}', 'EstadoCursoController@destroy');
 
 
 });

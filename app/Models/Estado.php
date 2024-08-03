@@ -10,6 +10,8 @@ class Estado extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'estados';
+
     protected $fillable = [
         'nombre',
         'color',

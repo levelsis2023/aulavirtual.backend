@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\EstadoCurso;
 
-class EstadoDeCursoController extends Controller
+class EstadoCursoController extends Controller
 {
     public function index($domain_id)
     {
-        $areas = EstadoDeCurso::where('domain_id', $domain_id)
+        $areas = EstadoCurso::where('domain_id', $domain_id)
                                 ->whereNull('deleted_at')
                                 ->get();
+
+
         return response()->json($areas);
     }
 
@@ -21,16 +24,17 @@ class EstadoDeCursoController extends Controller
             'color' => 'string|max:255',
         ]);
 
+
         $data = $request->all();
         $data['domain_id'] = $domain_id;
     
-        $area = EstadoDeCurso::create($data);
+        $area = EstadoCurso::create($data);
         return response()->json($area, 201);
     }
 
     public function show($id)
     {
-        $area = EstadoDeCurso::find($id);
+        $area = EstadoCurso::find($id);
         if (!$area) {
             return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
         }
@@ -46,7 +50,7 @@ class EstadoDeCursoController extends Controller
         ]);
 
 
-        $area = EstadoDeCurso::find($id);
+        $area = EstadoCurso::find($id);
 
   
         if (!$area) {
@@ -59,7 +63,7 @@ class EstadoDeCursoController extends Controller
 
     public function destroy($domain_id, $id)
     {
-        $area = EstadoDeCurso::find($id);
+        $area = EstadoCurso::find($id);
         if (!$area) {
             return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
         }
@@ -70,7 +74,7 @@ class EstadoDeCursoController extends Controller
 
     public function restore($id)
     {
-        $area = EstadoDeCurso::withTrashed()->find($id);
+        $area = EstadoCurso::withTrashed()->find($id);
         if (!$area) {
             return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
         }

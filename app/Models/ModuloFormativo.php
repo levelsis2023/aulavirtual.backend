@@ -10,6 +10,8 @@ class ModuloFormativo extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'modulos_formativos';
+
     protected $fillable = [
         'nombre',
         'color',
