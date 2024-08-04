@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Traits\UserTrait;
 //use hash;
 use Illuminate\Support\Facades\Hash;
 class AlumnoController extends Controller
