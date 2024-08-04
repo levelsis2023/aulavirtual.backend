@@ -1,9 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-/** @var \Laravel\Lumen\Routing\Router $router */
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -14,15 +10,17 @@ use Illuminate\Support\Facades\Route;
 | and give it the Closure to call when that URI is requested.
 |
 */
+$router->post('login','LoginController@login');
 
-$router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']], function () use ($router) {
-
+$router->group(['middleware' => 'auth'], function () use ($router) {
+    $router->get('user', function () use ($router) {
+        return auth()->user();
+    });
     $router->get('test', function(){
         dd(1);
     });
     $router->get('usuarios','UsuarioController@index');
     $router->post('usuarios','UsuarioController@store');
-    $router->post('login','LoginController@login');
 
     $router->get('maestros', 'MaestroController@index');
     $router->post('maestros', 'MaestroController@store');
@@ -149,40 +147,5 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->put('preguntas/{id}', 'PreguntaController@update');
     $router->delete('preguntas/{id}', 'PreguntaController@destroy');
     $router->post('foros', 'ForoController@store');
-    $router->get('foros/{domain_id}', 'ForoController@show');
-
-
-    //areas de formacion
-    $router->get('areas-de-formacion/{domain_id}', 'AreaDeFormacionController@index');
-    $router->post('areas-de-formacion/{domain_id}', 'AreaDeFormacionController@store');
-    $router->put('areas-de-formacion/{domain_id}/{id}', 'AreaDeFormacionController@update');
-    $router->delete('areas-de-formacion/{domain_id}/{id}', 'AreaDeFormacionController@destroy');
-
-
-    //modulos formativos
-    $router->get('modulos-formativos/{domain_id}', 'ModuloFormativoController@index');
-    $router->post('modulos-formativos/{domain_id}', 'ModuloFormativoController@store');
-    $router->put('modulos-formativos/{domain_id}/{id}', 'ModuloFormativoController@update');
-    $router->delete('modulos-formativos/{domain_id}/{id}', 'ModuloFormativoController@destroy');
-
-    //ciclos
-    $router->get('ciclos/{domain_id}', 'CicloController@index');
-    $router->post('ciclos/{domain_id}', 'CicloController@store');
-    $router->put('ciclos/{domain_id}/{id}', 'CicloController@update');
-    $router->delete('ciclos/{domain_id}/{id}', 'CicloController@destroy');
-
-    //estado
-    $router->get('estados/{domain_id}', 'EstadoController@index');
-    $router->post('estados/{domain_id}', 'EstadoController@store');
-    $router->put('estados/{domain_id}/{id}', 'EstadoController@update');
-    $router->delete('estados/{domain_id}/{id}', 'EstadoController@destroy');
-
-    //estado de curso
-    $router->get('estados-curso/{domain_id}', 'EstadoCursoController@index');
-    $router->post('estados-curso/{domain_id}', 'EstadoCursoController@store');
-    $router->put('estados-curso/{domain_id}/{id}', 'EstadoCursoController@update');
-    $router->delete('estados-curso/{domain_id}/{id}', 'EstadoCursoController@destroy');
-
-
 });
 

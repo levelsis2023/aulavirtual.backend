@@ -81,7 +81,7 @@ $app->configure('app');
 // ]);
 
 $app->routemiddleware([
-
+    'auth' => App\Http\Middleware\Authenticate::class,
     'validate.domain' => App\Http\Middleware\ValidateDomainMiddleware::class,
 ]);
 
@@ -101,7 +101,7 @@ $app->middleware([
 */
 
  $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+ $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 
