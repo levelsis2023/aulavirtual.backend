@@ -15,7 +15,8 @@ trait FileTrait{
         $file->move(storage_path('app/public/'.$folderName),$fileName); 
         return $folderName.'/'.$fileName;
         
-    }public function checkIsValidImage($file){
+    }
+    public function checkIsValidImage($file){
         $fileExtension=$file->getClientOriginalExtension();
        
         if(in_array($fileExtension,$this->validImageExtensions)){

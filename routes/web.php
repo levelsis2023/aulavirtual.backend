@@ -149,6 +149,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->put('preguntas/{id}', 'PreguntaController@update');
     $router->delete('preguntas/{id}', 'PreguntaController@destroy');
     $router->post('foros', 'ForoController@store');
+    $router->get('foros/{domain_id}', 'ForoController@show');
 
 
     //areas de formacion
@@ -181,7 +182,12 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->post('estados-curso/{domain_id}', 'EstadoCursoController@store');
     $router->put('estados-curso/{domain_id}/{id}', 'EstadoCursoController@update');
     $router->delete('estados-curso/{domain_id}/{id}', 'EstadoCursoController@destroy');
-
-
+    //aulas
+    $router->get('aulas/{dominio_id}', 'AulaController@index');
+    $router->post('aulas', 'AulaController@store');
+    $router->delete('aulas/{id}', 'AulaController@destroy');
+    $router->post('aulas/disponibilidad', 'AulaController@saveDisponibilidad');
+    $router->get('aulas/disponibilidad/{aula_id}', 'AulaController@getDisponibilidad');
+    $router->delete('aulas/disponibilidad/{id}', 'AulaController@destroyDisponibilidad');
 });
 
