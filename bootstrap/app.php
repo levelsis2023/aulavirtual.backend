@@ -37,7 +37,13 @@ $app = new Laravel\Lumen\Application(
 | your own bindings here if you like or you can make another file.
 |
 */
-
+$app->singleton('filesystem', function ($app) {
+    return $app->loadComponent(
+        'filesystems',
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+        'filesystem'
+    );
+});
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
@@ -79,6 +85,8 @@ $app->configure('app');
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
+$app->instance('path.config', app()->basePath() . DIRECTORY_SEPARATOR . 'config');
+
 
 $app->routemiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
@@ -99,6 +107,8 @@ $app->middleware([
 | totally optional, so you are not required to uncomment this line.
 |
 */
+$app->configure('filesystems');
+$app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
 
  $app->register(App\Providers\AppServiceProvider::class);
  $app->register(App\Providers\AuthServiceProvider::class);
@@ -115,7 +125,7 @@ $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 | can respond to, as well as the controllers that may handle them.
 |
 */
-
+$app->withFacades();
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {

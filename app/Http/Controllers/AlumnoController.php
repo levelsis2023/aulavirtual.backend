@@ -12,6 +12,7 @@ use App\Traits\UserTrait;
 use Illuminate\Support\Facades\Hash;
 class AlumnoController extends Controller
 {
+    use UserTrait;
     public function index($dominio){
       $alumnos = Alumno::leftJoin('t_g_parametros as ciclo', 'ciclo.nu_id_parametro', '=', 'alumnos.ciclo_id')
           ->leftJoin('carreras', 'carreras.id', '=', 'alumnos.carrera_id')
@@ -31,6 +32,7 @@ class AlumnoController extends Controller
         //inicia transaccion
         DB::beginTransaction();
         try{
+            
             $this->validate($request, [
                 'codigo' => 'required|string|max:255',
                 'nombres' => 'required|string|max:255',
@@ -39,6 +41,10 @@ class AlumnoController extends Controller
                 'tipoDocumento' => 'required|integer|max:255',
     
             ]);
+            $isValidEmail=$this->checkIsValidEmail($request->input('email'));
+            if(!$isValidEmail){
+                return response()->json(['message' => 'Email en uso'], 400);
+            }
             $directories = [
                 'public/carnet',
                 'public/fotos'
@@ -105,7 +111,7 @@ class AlumnoController extends Controller
                     $dataUser = [
                         'name' => $request->input('nombres'),
                         'email' => $request->input('email'),
-                        'password' => Hash::make($request->input('email')),
+                        'password' => Hash::make($request->input('contraseña')),
                         'domain_id' => $request->input('domain_id'),
                         'dni' => $request->input('numeroDocumento'),
                     ];

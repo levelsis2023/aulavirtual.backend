@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Institucione;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class InstitucioneController extends Controller
 {
     public function index(){
@@ -48,5 +48,8 @@ class InstitucioneController extends Controller
         }
         $instituciones->delete();
         return response()->json(["message" => "Eliminadod correctamente"], 204);
+    }
+    public function dropdown(){
+       return DB::table('companies')->select('domain_id', 'name')->get();
     }
 }
