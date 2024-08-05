@@ -22,6 +22,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     });
     $router->get('usuarios','UsuarioController@index');
     $router->post('usuarios','UsuarioController@store');
+    $router->delete('usuarios/{id}','UsuarioController@destroy');
     $router->post('login','LoginController@login');
 
     $router->get('maestros', 'MaestroController@index');

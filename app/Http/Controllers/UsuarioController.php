@@ -11,7 +11,7 @@ class UsuarioController extends Controller
 {
     use UserTrait;
     public function index(){
-        $usuarios=DB::table('users')->select('name','email','nombre')->join('rol','users.rol_id','=','rol.id')->get();
+        $usuarios=DB::table('users')->select('users.id','name','email','nombre')->join('rol','users.rol_id','=','rol.id')->get();
         return $usuarios;
     }
     public function store(Request $request){
@@ -37,5 +37,27 @@ class UsuarioController extends Controller
 
         return response()->json(['status'=>true]);
 
+    }
+    public function destroy($id){
+        //check if user exists and is not superadmin and if exists 
+        // if has a docente_id or alumno_id 
+        //delete row in docentes or alumnos
+        //delete user
+        $user=DB::table('users')->where('id',$id)->first();
+        if(!$user){
+            return response()->json(['status'=>false,'message'=>'Usuario no encontrado'],404);
+        }
+        if($user->rol_id==1){
+            return response()->json(['status'=>false,'message'=>'No se puede eliminar el superadmin'],400);
+        }
+        if($user->docente_id){
+            DB::table('docentes')->where('id',$user->docente_id)->delete();
+        }
+        if($user->alumno_id){
+            DB::table('alumnos')->where('id',$user->alumno_id)->delete();
+        }
+
+        DB::table('users')->where('id',$id)->delete();
+        return response()->json(['status'=>true]);
     }
 }
