@@ -33,7 +33,7 @@ class Evaluaciones extends Model
 
     public function estado()
     {
-        return $this->belongsTo(Estado::class, 'estado_id', 'nu_id_parametro');
+        return $this->belongsTo(Estado::class, 'estado_id', 'id');
     }
 
     public function grupoDeEvaluaciones()

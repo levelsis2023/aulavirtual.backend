@@ -43,7 +43,7 @@ class EvaluacionesController extends Controller
             'porcentaje_evaluacion' => 'required|numeric',
             'fecha_y_hora_programo' => 'required|date',
             'observaciones' => 'nullable|string',
-            'estado_id' => 'required|exists:t_g_parametros,nu_id_parametro',
+            'estado_id' => 'required',
             'domain_id' => 'required|integer',
             'grupo_de_evaluaciones_id' => 'required|integer',
         ]);
@@ -79,7 +79,7 @@ class EvaluacionesController extends Controller
             'porcentaje_evaluacion' => 'required|numeric',
             'fecha_y_hora_programo' => 'required|date',
             'observaciones' => 'nullable|string',
-            'estado_id' => 'required|exists:t_g_parametros,nu_id_parametro',
+            'estado_id' => 'required',
         ]);
 
         $Evaluaciones->update($validatedData);

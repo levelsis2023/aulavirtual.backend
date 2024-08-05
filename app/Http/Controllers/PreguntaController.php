@@ -18,16 +18,20 @@ class PreguntaController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'pregunta_docente' => 'required',
-            'evaluacion_id' => 'required',
-            'valor_pregunta' => 'required|numeric',
-            'tipo_de_evaluacion_id' => 'required',
-        ]);
-
-        $pregunta = Pregunta::create($request->all());
-
-        return response()->json($pregunta, 201);
+        try {
+            $this->validate($request, [
+                'pregunta_docente' => 'required',
+                'evaluacion_id' => 'required',
+                'valor_pregunta' => 'required|numeric',
+                'tipo_de_evaluacion_id' => 'required',
+            ]);
+    
+            $pregunta = Pregunta::create($request->all());
+    
+            return response()->json($pregunta, 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     public function show($id)

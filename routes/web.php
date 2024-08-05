@@ -192,5 +192,13 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     //get institution data
     $router->get('company/{domain_id}', 'CompanyController@show');
     $router->post('company', 'CompanyController@store');
+
+
+
+    //get cursos by docente
+    $router->get('cursos-docente/{docente_id}', 'CursoDocenteController@index');
+
+    //get cursos by alumno
+    $router->get('cursos-alumno/{alumno_id}', 'CursoAlumnoController@index');
     
 });
