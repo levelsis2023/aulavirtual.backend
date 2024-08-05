@@ -14,12 +14,18 @@ return new class extends Migration
         Schema::create('foro_respuestas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('foro_id')->constrained();
-            $table->foreignId('alumno_id')->constrained();
+            $table->foreignId('alumno_id')->constrained()->nullable();
             $table->foreignId('domain_id')->constrained();
+            $table->unsignedInteger('docente_id')->nullable();
+            $table->foreign('docente_id')->references('id')->on('docentes');
+            $table->unsignedBigInteger('foro_respuesta_id')->nullable();
+            $table->foreign('foro_respuesta_id')->references('id')->on('foro_respuestas');
             $table->text('respuesta');
             $table->text('nota')->nullable();
             $table->timestamps();
         });
+        
+        
     }
 
     /**
