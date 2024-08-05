@@ -29,7 +29,7 @@ class UsuarioController extends Controller
          DB::table('users')->insert([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->email),
+            'password' => Hash::make($request->password),
             'dni' => $request->dni,
             'rol_id' => $request->rol_id,
             'domain_id' => $request->domain_id,
