@@ -39,10 +39,8 @@ class UsuarioController extends Controller
 
     }
     public function destroy($id){
-        //check if user exists and is not superadmin and if exists 
-        // if has a docente_id or alumno_id 
-        //delete row in docentes or alumnos
-        //delete user
+        //set foreign key check to 0
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $user=DB::table('users')->where('id',$id)->first();
         if(!$user){
             return response()->json(['status'=>false,'message'=>'Usuario no encontrado'],404);
@@ -58,6 +56,8 @@ class UsuarioController extends Controller
         }
 
         DB::table('users')->where('id',$id)->delete();
+        //set foreign key check to 1
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         return response()->json(['status'=>true]);
     }
 }
