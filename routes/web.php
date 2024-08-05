@@ -22,6 +22,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     });
     $router->get('usuarios','UsuarioController@index');
     $router->post('usuarios','UsuarioController@store');
+    $router->delete('usuarios/{id}','UsuarioController@destroy');
     $router->post('login','LoginController@login');
 
     $router->get('maestros', 'MaestroController@index');
@@ -44,13 +45,12 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('instituciones/{id}', 'InstitucioneController@show');
     $router->put('instituciones/{id}', 'InstitucioneController@update');
     $router->delete('instituciones/{id}', 'InstitucioneController@destroy');
-
+    $router->get('institutions-dropdown', 'InstitucioneController@dropdown');
     $router->get('carreras-list/{dominio_id}', 'CarreraController@index');
     $router->post('carreras', 'CarreraController@store');
     $router->get('carreras/{id}', 'CarreraController@show');
     $router->put('carreras/{id}', 'CarreraController@update');
     $router->delete('carreras/{id}', 'CarreraController@destroy');
-
     //common routes
     //get carreras dropdown
     $router->get('carreras-dropdown', 'CarreraController@dropdown');
@@ -149,8 +149,8 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->put('preguntas/{id}', 'PreguntaController@update');
     $router->delete('preguntas/{id}', 'PreguntaController@destroy');
     $router->post('foros', 'ForoController@store');
-
-
+    $router->get('foros/{domain_id}/{alumno_id}/{docente_id}', 'ForoController@show');
+    $router->post('foros/message', 'ForoController@storeMessage');
     //areas de formacion
     $router->get('areas-de-formacion/{domain_id}', 'AreaDeFormacionController@index');
     $router->post('areas-de-formacion/{domain_id}', 'AreaDeFormacionController@store');
@@ -181,7 +181,16 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->post('estados-curso/{domain_id}', 'EstadoCursoController@store');
     $router->put('estados-curso/{domain_id}/{id}', 'EstadoCursoController@update');
     $router->delete('estados-curso/{domain_id}/{id}', 'EstadoCursoController@destroy');
+    //aulas
+    $router->get('aulas/{dominio_id}', 'AulaController@index');
+    $router->post('aulas', 'AulaController@store');
+    $router->delete('aulas/{id}', 'AulaController@destroy');
+    $router->post('aulas/disponibilidad', 'AulaController@saveDisponibilidad');
+    $router->get('aulas/disponibilidad/{aula_id}', 'AulaController@getDisponibilidad');
+    $router->delete('aulas/disponibilidad/{id}', 'AulaController@destroyDisponibilidad');
 
-
+    //get institution data
+    $router->get('company/{domain_id}', 'CompanyController@show');
+    $router->post('company', 'CompanyController@store');
+    
 });
-

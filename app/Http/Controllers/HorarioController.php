@@ -13,23 +13,29 @@ class HorarioController extends Controller
     public function store(Request $request)
     {
         $cursoId = $request->input('curso_id');
-        $docenteId = $request->input('docente_id');
-        $domainId = $request->input('domain_id');
+        $aulaId = $request->input('aula_id');
+            // $docenteId = $request->input('docente_id');
+        // $domainId = $request->input('domain_id');
         $horarios= $request->input('horarios');
-        $fechaInicio = date('Y-m-d', strtotime($request->input('fechaInicio')));
-        $fechaFin = date('Y-m-d', strtotime($request->input('fechaFin')));
-        $deselectedHorarios= $request->input('deselectedHorarios');
-        foreach($deselectedHorarios as $deselectedHorario){
-            $horarioId = $deselectedHorario;
-            if($horarioId!=-1){
-                DB::table('curso_horario')->where('id', $horarioId)->delete();
-            }
-        }
+        // $fechaInicio = date('Y-m-d', strtotime($request->input('fechaInicio')));
+        // $fechaFin = date('Y-m-d', strtotime($request->input('fechaFin')));
+        // $deselectedHorarios= $request->input('deselectedHorarios');
+        // foreach($deselectedHorarios as $deselectedHorario){
+        //     $horarioId = $deselectedHorario;
+        //     if($horarioId!=-1){
+        //         DB::table('curso_horario')->where('id', $horarioId)->delete();
+        //     }
+        // }
         foreach($horarios as $horario){
-            $horaInicio = $horario['inicio'];
-            $horaFin = $horario['fin'];
-            $dayId = $horario['value'];
-            $horarioId = $horario['id'];
+            $horaInicio = $horario['hora_inicio'];
+            $horaFin = $horario['hora_fin'];
+            $dayId = $horario['day_id'];
+            // $horarioId = $horario['id'];
+            $domainId=$horario['domain_id'];
+            $docenteId=$horario['docente_id'];
+            $fechaInicio = $horario['fecha_inicio'];
+            $fechaFin = $horario['fecha_fin'];
+            $availability_id = $horario['availability_id'];
             $cursoHorario = [
                 'curso_id' => $cursoId,
                 'docente_id' => $docenteId,
@@ -39,15 +45,20 @@ class HorarioController extends Controller
                 'hora_fin' => $horaFin,
                 'fecha_inicio' => $fechaInicio,
                 'fecha_fin' => $fechaFin,
-
+                'aula_id' => $aulaId,
+                'aula_availability_id' => $availability_id
             ];
             //insertar en la tabla curso_horario
-            if($horarioId!=-1){
-                $cursoHorario['id'] = $horarioId;
-                DB::table('curso_horario')->where('id', $horarioId)->update($cursoHorario);
-            }else{ 
-                DB::table('curso_horario')->insert($cursoHorario);
-            }
+            //check if exists a row with same availability_id,curso_id and aula_id
+            $horarioId = DB::table('curso_horario')->where('aula_availability_id', $availability_id)->where('curso_id', $cursoId)->where('aula_id', $aulaId)->value('id');
+            
+            DB::table('curso_horario')->insert($cursoHorario);
+            // if($horarioId!=-1){
+            //     $cursoHorario['id'] = $horarioId;
+            //     DB::table('curso_horario')->where('id', $horarioId)->update($cursoHorario);
+            // }else{ 
+            //     DB::table('curso_horario')->insert($cursoHorario);
+            // }
 
         }
         
