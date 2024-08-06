@@ -24,7 +24,10 @@ class AreaDeFormacionController extends Controller
 
         $data = $request->all();
         $data['domain_id'] = $domain_id;
-    
+        if ($data['color'] == null) {
+            $data['color'] = '#000000';
+        }
+
         $area = AreaDeFormacion::create($data);
         return response()->json($area, 201);
     }
@@ -49,7 +52,7 @@ class AreaDeFormacionController extends Controller
 
         $area = AreaDeFormacion::find($id);
 
-  
+
         if (!$area) {
             return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
         }

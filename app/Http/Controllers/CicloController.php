@@ -31,6 +31,9 @@ class CicloController extends Controller
         if ($ciclo) {
             return response()->json(['mensaje' => 'Ya existe un ciclo con el mismo orden', 'status' => 'exists'], 400);
         }
+        if ($data['color'] == null) {
+            $data['color'] = '#000000';
+        }
         $area = DB::table('ciclos')->insert($data);
         return response()->json($area, 201);
     }
@@ -119,7 +122,10 @@ class CicloController extends Controller
                     'orden' => $orden,
                     'domain_id' => $domain_id
                 ]);
+                return response()->json(['mensaje' => 'Orden actualizado', 'status' => 200], 200);
             }
+
         }
+        return response()->json(['mensaje' => 'Ya existe un ciclo con el mismo orden', 'status' => 'exists'], 400);
     }
 }

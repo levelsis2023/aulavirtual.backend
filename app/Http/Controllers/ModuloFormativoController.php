@@ -24,7 +24,9 @@ class ModuloFormativoController extends Controller
 
         $data = $request->all();
         $data['domain_id'] = $domain_id;
-    
+        if ($data['color'] == null) {
+            $data['color'] = '#000000';
+        }
         $area = ModuloFormativo::create($data);
         return response()->json($area, 201);
     }
@@ -49,7 +51,7 @@ class ModuloFormativoController extends Controller
 
         $area = ModuloFormativo::find($id);
 
-  
+
         if (!$area) {
             return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
         }
@@ -78,5 +80,5 @@ class ModuloFormativoController extends Controller
 
         $area->restore();
         return response()->json(['mensaje' => 'Área restaurada', 'status' => 200], 200);
-    } 
+    }
 }
