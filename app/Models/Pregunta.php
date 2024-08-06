@@ -32,4 +32,10 @@ class Pregunta extends Model
     {
         return $this->belongsTo(Evaluacion::class);
     }
+
+    
+    public function preguntaAlumnos()
+    {
+        return $this->hasMany(PreguntaAlumno::class, 'pregunta_id');
+    }
 }
