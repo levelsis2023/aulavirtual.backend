@@ -9,7 +9,7 @@ use App\Models\Domains;
 use App\Models\Empresa;
 use App\Models\Rol;
 use DateTime;
-
+use Illuminate\Support\Facades\DB;
 class EmpresaController extends Controller
 {
     public function index()
@@ -83,5 +83,7 @@ class EmpresaController extends Controller
         $empresa->delete();
 
         return response()->json(['mensaje' => "Se eliminó la empresa"], 200);
-    }
+    }public function dropdown(){
+        return DB::table('companies')->select('domain_id', 'name')->get();
+     }
 }

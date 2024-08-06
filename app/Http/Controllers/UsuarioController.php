@@ -10,8 +10,12 @@ use App\Traits\UserTrait;
 class UsuarioController extends Controller
 {
     use UserTrait;
-    public function index(){
-        $usuarios=DB::table('users')->select('users.id','name','email','nombre')->join('rol','users.rol_id','=','rol.id')->get();
+    public function index($domain_id){
+        if(!$domain_id){
+            $usuarios=DB::table('users')->select('users.id','name','email','nombre')->join('rol','users.rol_id','=','rol.id')->get();
+        }else{
+            $usuarios=DB::table('users')->select('users.id','name','email','nombre')->join('rol','users.rol_id','=','rol.id')->where('domain_id',$domain_id)->get();
+        }    
         return $usuarios;
     }
     public function store(Request $request){
@@ -26,14 +30,36 @@ class UsuarioController extends Controller
         if(!$isValidEmail){
             return response()->json(['message' => 'Email en uso'], 400);
         }
-         DB::table('users')->insert([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'dni' => $request->dni,
-            'rol_id' => $request->rol_id,
-            'domain_id' => $request->domain_id,
-        ]);
+     
+        $rolName=DB::table('rol')->where('id',$request->rol_id)->first()->nombre;
+        if($rolName=='Docente'){
+            $docente_id=DB::table('docentes')->insertGetId([
+                'nombre' => $request->nombre,
+                'apellido' => $request->apellido,
+                'email' => $request->email,
+                'dni' => $request->dni,
+                'domain_id' => $request->domain_id,
+            ]);
+            DB::table('users')->where('email',$request->email)->update(['docente_id'=>$docente_id]);
+        }else if($rolName=='Alumno'){
+            $alumno_id=DB::table('alumnos')->insertGetId([
+                'nombre' => $request->nombre,
+                'apellido' => $request->apellido,
+                'email' => $request->email,
+                'dni' => $request->dni,
+                'domain_id' => $request->domain_id,
+            ]);
+            DB::table('users')->where('email',$request->email)->update(['alumno_id'=>$alumno_id]);
+        }else{
+            DB::table('users')->insert([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'dni' => $request->dni,
+                'rol_id' => $request->rol_id,
+                'domain_id' => $request->domain_id,
+            ]);
+        }
 
         return response()->json(['status'=>true]);
 
