@@ -15,7 +15,10 @@ class UsuarioController extends Controller
             $usuarios=DB::table('users')->select('users.id','name','email','nombre')->join('rol','users.rol_id','=','rol.id')->get();
         }else{
             $usuarios=DB::table('users')->select('users.id','name','email','nombre')->join('rol','users.rol_id','=','rol.id')->where('domain_id',$domain_id)->get();
-        }    
+        }
+        if($domain_id == 0){
+            $usuarios=DB::table('users')->select('users.id','name','email','nombre')->join('rol','users.rol_id','=','rol.id')->get();
+        }
         return $usuarios;
     }
     public function store(Request $request){
@@ -30,7 +33,7 @@ class UsuarioController extends Controller
         if(!$isValidEmail){
             return response()->json(['message' => 'Email en uso'], 400);
         }
-     
+
         $rolName=DB::table('rol')->where('id',$request->rol_id)->first()->nombre;
         if($rolName=='Docente'){
             $docente_id=DB::table('docentes')->insertGetId([
