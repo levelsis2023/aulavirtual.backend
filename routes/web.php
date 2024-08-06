@@ -169,6 +169,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->post('ciclos/{domain_id}', 'CicloController@store');
     $router->put('ciclos/{domain_id}/{id}', 'CicloController@update');
     $router->delete('ciclos/{domain_id}/{id}', 'CicloController@destroy');
+    $router->post('ciclos-orden', 'CicloController@orden');
 
     //estado
     $router->get('estados/{domain_id}', 'EstadoController@index');
