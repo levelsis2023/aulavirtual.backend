@@ -12,9 +12,16 @@ use DateTime;
 
 class PermisoController extends Controller
 {
-    public function index()
+    public function index($domain_id)
     {
         $data = Permiso::all();
+        if($domain_id=="null"){
+            return response()->json($data);
+        }else{
+            //filteer permise with id 1 not allowed
+            $data = Permiso::where('id','!=',1)->get();
+            
+        }
         return response()->json($data);
     }
 
