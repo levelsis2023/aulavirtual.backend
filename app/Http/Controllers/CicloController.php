@@ -4,18 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ciclo;
+use Illuminate\Support\Facades\DB;
 
 class CicloController extends Controller
 {
     public function index($domain_id)
     {
         $areas = Ciclo::where('domain_id', $domain_id)
-                                ->whereNull('deleted_at')
-                                ->get();
+            ->whereNull('deleted_at')
+            ->get();
         return response()->json($areas);
     }
 
-    public function store(Request $request,$domain_id)
+    public function store(Request $request, $domain_id)
     {
         $this->validate($request, [
             'nombre' => 'required|string|max:255',
@@ -24,8 +25,13 @@ class CicloController extends Controller
 
         $data = $request->all();
         $data['domain_id'] = $domain_id;
-    
-        $area = Ciclo::create($data);
+        $ciclo = Ciclo::where('orden', $request->orden)
+            ->where('domain_id', $domain_id)
+            ->first();
+        if ($ciclo) {
+            return response()->json(['mensaje' => 'Ya existe un ciclo con el mismo orden', 'status' => 'exists'], 400);
+        }
+        $area = DB::table('ciclos')->insert($data);
         return response()->json($area, 201);
     }
 
@@ -49,9 +55,15 @@ class CicloController extends Controller
 
         $area = Ciclo::find($id);
 
-  
+
         if (!$area) {
             return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
+        }
+        $ciclo = Ciclo::where('orden', $request->orden)
+            ->where('domain_id', $domain_id)->where('id', '!=', $id)
+            ->first();
+        if ($ciclo) {
+            return response()->json(['mensaje' => 'Ya existe un ciclo con el mismo orden', 'status' => 'exists'], 400);
         }
 
         $area->update($request->all());
@@ -78,5 +90,36 @@ class CicloController extends Controller
 
         $area->restore();
         return response()->json(['mensaje' => 'Área restaurada', 'status' => 200], 200);
-    } 
+    }
+    public function orden(Request $request)
+    {
+        $id = $request->get('id');
+        $nombre = $request->get('nombre');
+        $color = $request->get('color');
+        $orden = $request->get('orden');
+        $domain_id = $request['domain_id'];
+        $ciclo = Ciclo::where('orden', $orden)
+            ->where('domain_id', $domain_id)
+            ->first();
+        if ($ciclo) {
+            $ciclo->orden = null;
+            $ciclo->save();
+
+            if ($id) {
+                $ciclo = Ciclo::find($id);
+                $ciclo->orden = $orden;
+                $ciclo->color = $color;
+                $ciclo->nombre = $nombre;
+                $ciclo->save();
+                return response()->json(['mensaje' => 'Orden actualizado', 'status' => 200], 200);
+            } else {
+                Ciclo::create([
+                    'nombre' => $nombre,
+                    'color' => $color,
+                    'orden' => $orden,
+                    'domain_id' => $domain_id
+                ]);
+            }
+        }
+    }
 }

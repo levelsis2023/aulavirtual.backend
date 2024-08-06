@@ -16,5 +16,6 @@ class Ciclo extends Model
         'nombre',
         'color',
         'domain_id',
+        'orden'
     ];
 }
