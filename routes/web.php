@@ -200,5 +200,13 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
 
     //get cursos by alumno
     $router->get('cursos-alumno/{alumno_id}', 'CursoAlumnoController@index');
+
+    //alumno preguntas
+    $router->post('alumno-preguntas', 'PreguntaAlumnoController@guardarAlumnoPregunta');
     
+
+
+    Route::get('cursos/{curso_id}/evaluaciones', 'PreguntaAlumnoController@obtenerCursosConEvaluaciones');
+
+    Route::get('obtener-preguntas-corregidas/{pregunta_id}', 'PreguntaAlumnoController@obtenerPreguntasNoCorregidas');
 });
