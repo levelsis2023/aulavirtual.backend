@@ -82,7 +82,17 @@ class CursoController extends Controller
 
     public function getSyllabus($id)
     {
-        $course = Curso::find($id);
+        $course = Curso::find($id,['id','syllabus']);
+        if(!$course){
+            return response()->json(['Error' => 'Curso no encontrado'], 404);
+        }
+
+        return response()->json(['Exito' => true, 'Datos' => $course], 200);
+    }
+
+    public function getTema($id)
+    {
+        $course = Curso::find($id,['id','tema']);
         if(!$course){
             return response()->json(['Error' => 'Curso no encontrado'], 404);
         }

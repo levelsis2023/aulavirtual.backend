@@ -80,6 +80,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->post('cursos', 'CursoController@store');
     $router->get('cursos/{id}', 'CursoController@show');
     $router->get('cursos/{id}/syllabus', 'CursoController@getSyllabus');
+    $router->get('cursos/{id}/tema', 'CursoController@getTema');
     $router->put('cursos/{id}', 'CursoController@update');
     $router->delete('cursos/{id}', 'CursoController@destroy');
 
