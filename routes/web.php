@@ -57,7 +57,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('carreras-dropdown/{domain_id}', 'CarreraController@dropdown');
     //get ciclos dropdown
     $router->get('ciclos-dropdown', 'ParametroController@dropdown');
-    $router->get('ciclos-dropdown/{domain_id}', 'ParametroController@dropdown');
+    $router->get('ciclos-dropdown/{domain_id}', 'CicloController@dropDown');
     //docentes dropdown
     $router->get('docentes-dropdown/{domain_id}', 'DocenteController@dropdown');
 

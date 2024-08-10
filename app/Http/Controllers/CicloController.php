@@ -128,4 +128,9 @@ class CicloController extends Controller
         }
         return response()->json(['mensaje' => 'Ya existe un ciclo con el mismo orden', 'status' => 'exists'], 400);
     }
+
+    public function dropDown($domain_id){
+        $ciclos = Ciclo::select('id', 'nombre')->where('domain_id', $domain_id)->get();
+        return response()->json($ciclos);
+    }
 }
