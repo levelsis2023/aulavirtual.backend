@@ -70,9 +70,12 @@ class CursoController extends Controller
 
     public function show($id)
     {
-        $course = Curso::where('cursos.id', '=', $id)->get();
+        $course = Curso::find($id);
+        if(!$course){
+            return response()->json(['Error' => 'Curso no encontrado'], 404);
+        }
 
-        return response()->json($course);
+        return response()->json(['Exito' => true, 'Datos' => $course], 200);
     }
 
     public function update(Request $request, $id)
