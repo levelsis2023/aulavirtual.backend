@@ -23,7 +23,7 @@ class CursoController extends Controller
             'modulo_formativo.tx_item_description as modulo_formativo_nombre',
             'area_de_formacion.tx_item_description as area_de_formacion_nombre',
             'carreras.nombres as carrera_nombre',
-            'estado.tx_item_description as estado_nombre',  
+            'estado.tx_item_description as estado_nombre',
             'docentes.id as docente_id'
         )
         ->get();
@@ -31,8 +31,8 @@ class CursoController extends Controller
     return response()->json($courses);
     }
 
-    
- 
+
+
     public function store(Request $request){
         $this->validate($request, [
             'codigo' => 'required|string|max:255',
@@ -48,7 +48,7 @@ class CursoController extends Controller
             'estadoId' => 'required|integer',
             'domain_id' => 'required',
         ]);
-    
+
         $curso = Curso::create([
             'codigo' => $request->codigo,
             'nombre' => $request->nombreCurso,
@@ -64,18 +64,20 @@ class CursoController extends Controller
             'domain_id' => $request->domain_id,
             'docente_id' => $request->asignacionDocentesId,
         ]);
-    
+
         return response()->json($curso, 201);
     }
 
     public function show($id)
     {
-        // Your code here
+        $course = Curso::where('cursos.id', '=', $id)->get();
+
+        return response()->json($course);
     }
 
     public function update(Request $request, $id)
     {
-      
+
         $this->validate($request, [
             'codigo' => 'required|string|max:255',
             'nombreCurso' => 'required|string|max:255',
@@ -90,7 +92,7 @@ class CursoController extends Controller
             'estadoId' => 'required|integer',
             'domain_id' => 'required',
         ]);
-        
+
         $curso = Curso::findOrFail($id);
         $curso->update([
             'codigo' => $request->codigo,
@@ -106,7 +108,7 @@ class CursoController extends Controller
             'estado_id' => $request->estadoId,
             'domain_id' => $request->domain_id,
         ]);
-    
+
         return response()->json($curso, 200);
     }
 
