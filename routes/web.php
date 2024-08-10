@@ -79,6 +79,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('cursos', 'CursoController@index');
     $router->post('cursos', 'CursoController@store');
     $router->get('cursos/{id}', 'CursoController@show');
+    $router->get('cursos/{id}/syllabus', 'CursoController@getSyllabus');
     $router->put('cursos/{id}', 'CursoController@update');
     $router->delete('cursos/{id}', 'CursoController@destroy');
 
@@ -91,7 +92,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
 
     $router->post('rol/guardar-permiso', 'RolController@guardarPermiso');
     $router->get('rol/get-rol-permiso/{id}/{domain_id}', 'RolController@getRolPermisos');
-    
+
     $router->get('empresas', 'EmpresaController@index');
     $router->post('empresa/guardar', 'EmpresaController@store');
     $router->get('empresa/{id}', 'EmpresaController@show');
@@ -120,7 +121,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->post('alumnos', 'AlumnoController@store');
     $router->get('alumnos/{id}/{dominio}', 'AlumnoController@show');
     $router->delete('alumnos/{id}/{dominio}', 'AlumnoController@destroy');
-    
+
 
 
     //horario routes
@@ -137,7 +138,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('evaluaciones/{id}', 'EvaluacionesController@index');
     $router->put('evaluaciones/{id}', 'EvaluacionesController@update');
     $router->delete('evaluaciones/{id}', 'EvaluacionesController@destroy');
-    //calendarios routes    
+    //calendarios routes
     $router->post('calendario/alumno', 'CalendarioController@getAlumnoCalendario');
     $router->post('calendario/docente', 'CalendarioController@getDocenteCalendario');
 
@@ -204,7 +205,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
 
     //alumno preguntas
     $router->post('alumno-preguntas', 'PreguntaAlumnoController@guardarAlumnoPregunta');
-    
+
 
 
     Route::get('cursos/{curso_id}/evaluaciones', 'PreguntaAlumnoController@obtenerCursosConEvaluaciones');
