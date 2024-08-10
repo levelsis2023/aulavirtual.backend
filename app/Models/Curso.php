@@ -17,6 +17,7 @@ class Curso extends Model
         'modulo_formativo_id',
         'area_de_formacion_id',
         'syllabus',
+        'tema',
         'estado_id',
         'domain_id',
         'docente_id'

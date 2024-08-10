@@ -45,6 +45,7 @@ class CursoController extends Controller
             'cantidadHoras' => 'required|integer',
             'carreraId' => 'required|integer',
             'syllabus' => 'required|string',
+            'tema' => 'required|string',
             'estadoId' => 'required|integer',
             'domain_id' => 'required',
         ]);
@@ -60,6 +61,7 @@ class CursoController extends Controller
             'cantidad_de_horas' => $request->cantidadHoras,
             'carrera_id' => $request->carreraId,
             'syllabus' => $request->syllabus,
+            'tema' => $request->tema,
             'estado_id' => $request->estadoId,
             'domain_id' => $request->domain_id,
             'docente_id' => $request->asignacionDocentesId,
@@ -92,6 +94,7 @@ class CursoController extends Controller
             'cantidadHoras' => 'required|integer',
             'carreraId' => 'required|integer',
             'syllabus' => 'required|string',
+            'tema' => 'required|string',
             'estadoId' => 'required|integer',
             'domain_id' => 'required',
         ]);
@@ -108,6 +111,7 @@ class CursoController extends Controller
             'cantidad_de_horas' => $request->cantidadHoras,
             'carrera_id' => $request->carreraId,
             'syllabus' => $request->syllabus,
+            'tema' => $request->tema,
             'estado_id' => $request->estadoId,
             'domain_id' => $request->domain_id,
         ]);
