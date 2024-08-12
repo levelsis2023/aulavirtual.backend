@@ -10,6 +10,7 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+/*
 $router->post('login','LoginController@login');
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
@@ -89,7 +90,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 
     $router->post('rol/guardar-permiso', 'RolController@guardarPermiso');
     $router->get('rol/get-rol-permiso/{id}', 'RolController@getRolPermisos');
-    
+
     $router->get('empresas', 'EmpresaController@index');
     $router->post('empresa/guardar', 'EmpresaController@store');
     $router->get('empresa/{id}', 'EmpresaController@show');
@@ -118,7 +119,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('alumnos', 'AlumnoController@store');
     $router->get('alumnos/{id}/{dominio}', 'AlumnoController@show');
     $router->delete('alumnos/{id}/{dominio}', 'AlumnoController@destroy');
-    
+
 
 
     //horario routes
@@ -135,7 +136,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('evaluaciones/{id}', 'EvaluacionesController@index');
     $router->put('evaluaciones/{id}', 'EvaluacionesController@update');
     $router->delete('evaluaciones/{id}', 'EvaluacionesController@destroy');
-    //calendarios routes    
+    //calendarios routes
     $router->post('calendario/alumno', 'CalendarioController@getAlumnoCalendario');
     $router->post('calendario/docente', 'CalendarioController@getDocenteCalendario');
 
@@ -147,5 +148,5 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->put('preguntas/{id}', 'PreguntaController@update');
     $router->delete('preguntas/{id}', 'PreguntaController@destroy');
     $router->post('foros', 'ForoController@store');
-});
+});*/
 

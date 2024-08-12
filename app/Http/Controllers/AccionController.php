@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Accion;
+use App\Models\AccionOi;
 use Illuminate\Http\Request;
 
 class AccionController extends Controller
@@ -10,34 +10,28 @@ class AccionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $accion = Accion::paginate(10);
-        return response()->json($accion, 200);
+        $accion = AccionOi::where('domain_id', $domain_id)
+            ->whereNull('deleted_at')
+            ->get();
+        return response()->json($accion);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(Request $request, $domain_id)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-
-            'nombre' => 'required',
-            'color' => 'required',
+        $this->validate($request, [
+            'nombre' => 'required|string|max:255',
+            'color' => 'string|max:255',
         ]);
 
-        $accion = Accion::create($request->all());
-
-        return response()->json(['message' => 'acción creada correctamente', 'data' => $accion], 201);
+        $data = $request->all();
+        $data['domain_id'] = $domain_id;
+        if ($data['color'] == null) {
+            $data['color'] = '#000000';
+        }
+        $accion = AccionOi::create($data);
+        return response()->json($accion, 201);
     }
 
     /**
@@ -45,43 +39,26 @@ class AccionController extends Controller
      */
     public function show($id)
     {
-        $accion = Accion::find($id);
-
+        $accion = AccionOi::find($id);
         if (!$accion) {
-            return response()->json(['message' => 'acción  no encontrada'], 404);
+            return response()->json(['mensaje' => 'Gestion no encontrada', 'status' => 404], 404);
         }
-
-        return response()->json(['data' => $accion], 200);
+        return response()->json($accion);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
-        $request->validate([
-
-            'nombre' => 'required',
-            'color' => 'required',
+        $this->validate($request, [
+            'nombre' => 'string|max:255',
+            'color' => 'string|max:255',
         ]);
-
-        $accion = Accion::find($id);
+        $accion = AccionOi::find($id);
 
         if (!$accion) {
-            return response()->json(['message' => 'acción no encontrada'], 404);
+            return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
         }
-
         $accion->update($request->all());
-
-        return response()->json(['message' => 'acción actualizada correctamente', 'data' => $accion], 200);
+        return response()->json($accion);
     }
 
     /**
@@ -89,14 +66,22 @@ class AccionController extends Controller
      */
     public function destroy($id)
     {
-        $accion = Accion::find($id);
-
+        $accion = AccionOi::find($id);
         if (!$accion) {
-            return response()->json(['message' => 'acción no encontrada'], 404);
+            return response()->json(['mensaje' => 'Gestion no encontrada', 'status' => 404], 404);
+        }
+        $accion->delete();
+        return response()->json(['mensaje' => 'Gestion eliminada'], 200);
+    }
+
+    public function restore($id)
+    {
+        $accion = AccionOi::withTrashed()->find($id);
+        if (!$accion) {
+            return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
         }
 
-        $accion->delete();
-
-        return response()->json(['message' => 'acción eliminada correctamente'], 204);
+        $accion->restore();
+        return response()->json(['mensaje' => 'Área restaurada', 'status' => 200], 200);
     }
 }

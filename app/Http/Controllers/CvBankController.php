@@ -20,7 +20,7 @@ class CvBankController extends Controller
                           ->byTerm($request->term)
                           ->byProfessionId($request->profession_id)
                           ->byEducationDegreeId($request->education_degree_id)
-                          ->byCurrentStateId($request->current_state_id)  
+                          ->byCurrentStateId($request->current_state_id)
                           ->paginate(10);
 
         return response()->json($cvBanks, 200);
@@ -55,7 +55,7 @@ class CvBankController extends Controller
             'current_states' => \App\Models\EstadoActual::all(),
             'position_levels' => \App\Models\NivelCargo::all(),
             'scales' => \App\Models\Escala::all(),
-            'actions' => \App\Models\Accion::all(),
+            'actions' => \App\Models\AccionOi::all(),
             'training_types' => \App\Models\TipoCapacitacion::all()
         ];
 

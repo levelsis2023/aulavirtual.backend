@@ -91,7 +91,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
 
     $router->post('rol/guardar-permiso', 'RolController@guardarPermiso');
     $router->get('rol/get-rol-permiso/{id}/{domain_id}', 'RolController@getRolPermisos');
-    
+
     $router->get('empresas', 'EmpresaController@index');
     $router->post('empresa/guardar', 'EmpresaController@store');
     $router->get('empresa/{id}', 'EmpresaController@show');
@@ -120,7 +120,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->post('alumnos', 'AlumnoController@store');
     $router->get('alumnos/{id}/{dominio}', 'AlumnoController@show');
     $router->delete('alumnos/{id}/{dominio}', 'AlumnoController@destroy');
-    
+
 
 
     //horario routes
@@ -137,7 +137,7 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->get('evaluaciones/{id}', 'EvaluacionesController@index');
     $router->put('evaluaciones/{id}', 'EvaluacionesController@update');
     $router->delete('evaluaciones/{id}', 'EvaluacionesController@destroy');
-    //calendarios routes    
+    //calendarios routes
     $router->post('calendario/alumno', 'CalendarioController@getAlumnoCalendario');
     $router->post('calendario/docente', 'CalendarioController@getDocenteCalendario');
 
@@ -204,10 +204,21 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
 
     //alumno preguntas
     $router->post('alumno-preguntas', 'PreguntaAlumnoController@guardarAlumnoPregunta');
-    
+
 
 
     Route::get('cursos/{curso_id}/evaluaciones', 'PreguntaAlumnoController@obtenerCursosConEvaluaciones');
 
     Route::get('obtener-preguntas-corregidas/{pregunta_id}', 'PreguntaAlumnoController@obtenerPreguntasNoCorregidas');
+
+    //Ceiber Conrago Garibay Choque - 2024-08-10 Subgrupo de rutas para las apis de organizacion institucional
+    $router->group(['prefix' => 'organizacion-institucional'], function() use ($router){
+        //Mantenimientos
+        $router->get('action/{domain_id}', 'AccionController@index');
+        $router->get('action/get/{id}', 'AccionController@show');
+        $router->post('action/{domain_id}', 'AccionController@store');
+        $router->put('action/{domain_id}/{id}', 'AccionController@update');
+        $router->delete('action/{domain_id}/{id}', 'AccionController@destroy');
+    });
 });
+
