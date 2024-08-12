@@ -10,6 +10,7 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+/*
 $router->post('login','LoginController@login');
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
@@ -148,5 +149,5 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->put('preguntas/{id}', 'PreguntaController@update');
     $router->delete('preguntas/{id}', 'PreguntaController@destroy');
     $router->post('foros', 'ForoController@store');
-});
+});*/
 

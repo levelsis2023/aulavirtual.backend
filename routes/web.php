@@ -212,4 +212,15 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     Route::get('cursos/{curso_id}/evaluaciones', 'PreguntaAlumnoController@obtenerCursosConEvaluaciones');
 
     Route::get('obtener-preguntas-corregidas/{pregunta_id}', 'PreguntaAlumnoController@obtenerPreguntasNoCorregidas');
+
+    //Ceiber Conrago Garibay Choque - 2024-08-10 Subgrupo de rutas para las apis de organizacion institucional
+    $router->group(['prefix' => 'organizacion-institucional'], function() use ($router){
+        //Mantenimientos
+        $router->get('action/{domain_id}', 'AccionController@index');
+        $router->get('action/get/{id}', 'AccionController@show');
+        $router->post('action/{domain_id}', 'AccionController@store');
+        $router->put('action/{domain_id}/{id}', 'AccionController@update');
+        $router->delete('action/{domain_id}/{id}', 'AccionController@destroy');
+    });
 });
+
