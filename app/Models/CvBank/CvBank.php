@@ -40,7 +40,8 @@ class CvBank extends Model
         'sex',
         'date_affiliation',
         'estado_actual_id',
-        'training_type_id'
+        'training_type_id',
+        'domain_id'
     ];
 
     // nueva propiedad con la url de la imagen
@@ -97,6 +98,10 @@ class CvBank extends Model
         return $this->belongsTo(DocIdentidad::class, 'identification_document_id');
     }
 
+
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
+    }
 
 
 
