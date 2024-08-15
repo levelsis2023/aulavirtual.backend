@@ -13,7 +13,12 @@ class DocIdentidad extends Model
     protected $fillable = [
 
         'nombre',
+        'domain_id',
 
     ];
+
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
+    }
 
 }

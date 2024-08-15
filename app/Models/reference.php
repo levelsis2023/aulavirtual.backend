@@ -17,8 +17,14 @@ class Reference extends Model
         'phone',
         'reason',
         'ocupation',
+        'domain_id',
         'type'
     ];
+
+
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
+    }
 
 
     public function scopeByType($query, $type)

@@ -23,7 +23,7 @@ class AcademicFormationController extends Controller
      */
     public function index()
     {
-        //
+        $domainId = $request->user()->domain_id;
         $academics = AcademicFormation::whereNotNull('user_id')->paginate(10);
         return response()->json(['academic' => $academics]);
     }

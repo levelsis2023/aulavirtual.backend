@@ -12,6 +12,7 @@ class EstadoCivilController extends Controller
      */
     public function index()
     {
+        $domainId = $request->user()->domain_id;
         $estadoCivil = EstadoCivil::paginate(10);
         return response()->json($estadoCivil, 200);
     }

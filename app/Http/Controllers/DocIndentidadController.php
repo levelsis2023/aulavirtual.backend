@@ -12,6 +12,7 @@ class DocIndentidadController extends Controller
      */
     public function index()
     {
+        $domainId = $request->user()->domain_id;
         $docIdentidad = DocIdentidad::paginate(10);
         return response()->json($docIdentidad, 200);
     }

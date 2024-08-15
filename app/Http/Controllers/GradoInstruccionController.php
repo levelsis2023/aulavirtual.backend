@@ -12,6 +12,7 @@ class GradoInstruccionController extends Controller
      */
     public function index()
     {
+        $domainId = $request->user()->domain_id;
         $gradoInstrucion = GradoInstruccion::paginate(10);
 
         return response()->json($gradoInstrucion, 200);

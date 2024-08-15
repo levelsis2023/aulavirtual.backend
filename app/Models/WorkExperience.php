@@ -32,12 +32,17 @@ class WorkExperience extends Model
         'image',
         'end_reason',
         'observations',
+        'domain_id',
         'validated'
     ];
 
     // nueva propiedad con la url de la imagen
 
     protected $appends = ['image_url'];
+
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
+    }
 
     public function getImageUrlAttribute()
     {

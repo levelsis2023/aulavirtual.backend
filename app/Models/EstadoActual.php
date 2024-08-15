@@ -12,7 +12,7 @@ class EstadoActual extends Model
 
     protected $fillable = [
 
-        'nombre',
+        'nombre','domain_id',
 
     ];
 }
