@@ -15,6 +15,7 @@ class ReferenceController extends Controller
      */
     public function index()
     {
+        $domainId = $request->user()->domain_id;
         $reference = Reference::paginate(10);
 
         return response()->json($reference, 200);

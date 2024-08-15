@@ -12,6 +12,7 @@ class ProfesionController extends Controller
      */
     public function index()
     {
+        $domainId = $request->user()->domain_id;
         $profesion = Profesion::paginate(10);
         return response()->json($profesion, 200);
     }

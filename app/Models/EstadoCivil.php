@@ -12,7 +12,11 @@ class EstadoCivil extends Model
 
     protected $fillable = [
 
-        'nombre',
+        'nombre','domain_id'
 
     ];
+
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
+    }
 }

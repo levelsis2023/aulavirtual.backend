@@ -12,6 +12,7 @@ class EstadoActualController extends Controller
      */
     public function index()
     {
+        $domainId = $request->user()->domain_id;
         $TipoEstado = EstadoActual::paginate(10);
         return response()->json($TipoEstado, 200);
     }

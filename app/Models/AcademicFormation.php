@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AcademicFormation extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $table = 'academic_formation';
+    protected $table = 'academic_formations';
 
-
-    protected $fillable=[
+    protected $fillable = [
         'uuid',
         'cv_bank_id',
         'user_id',
@@ -26,10 +26,14 @@ class AcademicFormation extends Model
         'date_start',
         'date_end',
         'observation',
-        'validated'
+        'validated',
+        'domain_id' 
     ];
 
-    // nueva propiedad con la url de la imagen
+    protected $casts = [
+        'date_start' => 'date',
+        'date_end' => 'date',
+    ];
 
     protected $appends = ['image_url'];
 
@@ -43,11 +47,13 @@ class AcademicFormation extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function professionModel(){
+    public function professionModel()
+    {
         return $this->belongsTo(Profesion::class, 'profession');
     }
 
-    public function educationDegree(){
+    public function educationDegree()
+    {
         return $this->belongsTo(GradoInstruccion::class, 'education');
     }
 
@@ -56,4 +62,13 @@ class AcademicFormation extends Model
         return $this->belongsTo(EstadoAvance::class, 'advance');
     }
 
+    public function cvBank()
+    {
+        return $this->belongsTo(CvBank::class, 'cv_bank_id');
+    }
+
+    public function domain()
+    {
+        return $this->belongsTo(Domain::class, 'domain_id');
+    }
 }

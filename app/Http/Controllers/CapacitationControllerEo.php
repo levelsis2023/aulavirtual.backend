@@ -19,7 +19,8 @@ class CapacitationControllerEo extends Controller
      */
     public function index()
     {
-        //
+        $domainId = $request->user()->domain_id;
+
         $capacitations = Capacitation::paginate(10);
         return response()->json(['capacitations' => $capacitations]);
     }

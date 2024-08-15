@@ -16,6 +16,7 @@ class CvBankController extends Controller
      */
     public function index(Request $request)
     {
+        $domainId = $request->user()->domain_id;
         $cvBanks = CvBank::with('marital_status','profession','estadoActual','education_degree','identification_document')
                           ->byTerm($request->term)
                           ->byProfessionId($request->profession_id)
