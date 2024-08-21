@@ -14,10 +14,15 @@ class ManagementDocumentType extends Model
 
     protected $fillable = [
         'name',
+        'domain_id'
     ];
 
     public function personalDocumentaryFiles()
     {
         return $this->hasMany(PersonalDocumentaryFile::class, 'management_document_type_id');
+    }
+
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
     }
 }

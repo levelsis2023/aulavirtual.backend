@@ -11,6 +11,11 @@ class Management extends Model
     protected $table = 'managements';
 
     protected $fillable = [
-        'description'
+        'description',
+        'domain_id'
     ];
+
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
+    }
 }

@@ -14,21 +14,27 @@ class CvBankController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request,$domain_id)
     {
-        $domainId = $request->user()->domain_id;
-        $cvBanks = CvBank::with('marital_status','profession','estadoActual','education_degree','identification_document')
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $cvBanks = CvBank::all();
+        } else
+        {
+            $cvBanks = CvBank::with('marital_status','profession','estadoActual','education_degree','identification_document')
                           ->byTerm($request->term)
                           ->byProfessionId($request->profession_id)
                           ->byEducationDegreeId($request->education_degree_id)
                           ->byCurrentStateId($request->current_state_id)
                           ->paginate(10);
+        }
+        
 
         return response()->json($cvBanks, 200);
     }
 
 
-    public function filtersData(){
+    public function filtersData($domain_id){
         $data = [
             'education_degrees' => \App\Models\GradoInstruccion::all(),
             'professions' => \App\Models\Profesion::all(),
@@ -46,7 +52,7 @@ class CvBankController extends Controller
         //
     }
 
-    public function dataCreate()
+    public function dataCreate($domain_id,$id)
     {
         $data = [
             'identification_documents' => \App\Models\DocIdentidad::all(),
@@ -56,7 +62,7 @@ class CvBankController extends Controller
             'current_states' => \App\Models\EstadoActual::all(),
             'position_levels' => \App\Models\NivelCargo::all(),
             'scales' => \App\Models\Escala::all(),
-            'actions' => \App\Models\AccionOi::all(),
+            'actions' => \App\Models\Accion::all(),
             'training_types' => \App\Models\TipoCapacitacion::all()
         ];
 

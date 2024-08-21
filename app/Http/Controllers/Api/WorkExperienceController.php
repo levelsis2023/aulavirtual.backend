@@ -18,10 +18,17 @@ class WorkExperienceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $domainId = $request->user()->domain_id;
-        $work_experience = WorkExperience::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $work_experience = WorkExperience::all();
+        } else
+        {
+            $work_experience = WorkExperience::paginate(10);
+        }
+
+        
         return response()->json(['work_experience' => $work_experience]);
     }
 
@@ -108,7 +115,7 @@ class WorkExperienceController extends Controller
     }
 
 
-    public function validateRegister(Request $request,$id){
+    public function validateRegister(Request $request,$domain_id,$id){
         $workExperience= WorkExperience::find($id);
          if($workExperience){
               $workExperience->validated = $request->validated;
@@ -119,7 +126,7 @@ class WorkExperienceController extends Controller
          return response()->json(['message' => 'Experiencia laboral no encontrado'], 404);
     }
 
-    public function getDataCreate()
+    public function getDataCreate($domain_id,$id)
     {
 
         $positions = \App\Models\Position::all();

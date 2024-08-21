@@ -10,9 +10,17 @@ class EscalaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $escala = Escala::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $escala = Escala::all();
+        } else
+        {
+            $escala = Escala::paginate(10);
+        }
+
+        
 
         return response()->json($escala, 200);
     }

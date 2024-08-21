@@ -10,10 +10,17 @@ class EstadoActualController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $domainId = $request->user()->domain_id;
-        $TipoEstado = EstadoActual::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $TipoEstado = EstadoActual::all();
+        } else
+        {
+            $TipoEstado = EstadoActual::paginate(10);
+        }
+
+        
         return response()->json($TipoEstado, 200);
     }
 

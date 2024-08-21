@@ -10,9 +10,17 @@ class TipoCapacitacionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $tipoCapacitacion = TipoCapacitacion::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $tipoCapacitacion = TipoCapacitacion::all();
+        } else
+        {
+            $tipoCapacitacion = TipoCapacitacion::paginate(10);
+        }
+
+        
 
         return response()->json($tipoCapacitacion, 200);
     }

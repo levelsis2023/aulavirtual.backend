@@ -10,10 +10,17 @@ class EstadoCivilController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $domainId = $request->user()->domain_id;
-        $estadoCivil = EstadoCivil::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $estadoCivil = EstadoCivil::all();
+        } else
+        {
+            $estadoCivil = EstadoCivil::paginate(10);
+        }
+
+        
         return response()->json($estadoCivil, 200);
     }
 

@@ -12,7 +12,15 @@ class ServiceOrderController extends Controller
 {
     public function index($cv_bank_id)
     {
-        $service_order = ServiceOrder::where('cv_bank_id', $cv_bank_id)->paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $service_order = ServiceOrder::all();
+        } else
+        {
+            $service_order = ServiceOrder::where('cv_bank_id', $cv_bank_id)->paginate(10);
+        }
+
+        
 
         return response()->json($service_order, 200);
     }

@@ -21,15 +21,21 @@ class AcademicFormationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $domainId = $request->user()->domain_id;
-        $academics = AcademicFormation::whereNotNull('user_id')->paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $academics = AcademicFormation::all();
+        } else
+        {
+            $academics = AcademicFormation::whereNotNull('user_id')->paginate(10);
+        }
+        
         return response()->json(['academic' => $academics]);
     }
 
 
-    public function getDataCreate()
+    public function getDataCreate($domain_id, $id)
     {
         $educationlDegree = GradoInstruccion::all();
         $professions = Profesion::all();

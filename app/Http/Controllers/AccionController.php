@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AccionOi;
+use App\Models\Accion;
 use Illuminate\Http\Request;
 
 class AccionController extends Controller
@@ -12,9 +12,16 @@ class AccionController extends Controller
      */
     public function index($domain_id)
     {
-        $accion = AccionOi::where('domain_id', $domain_id)
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $accion = Accion::all();
+        } else
+        {
+            $accion = Accion::where('domain_id', $domain_id)
             ->whereNull('deleted_at')
             ->get();
+        }
+
         return response()->json($accion);
     }
 
@@ -30,7 +37,7 @@ class AccionController extends Controller
         if ($data['color'] == null) {
             $data['color'] = '#000000';
         }
-        $accion = AccionOi::create($data);
+        $accion = Accion::create($data);
         return response()->json($accion, 201);
     }
 
@@ -39,7 +46,7 @@ class AccionController extends Controller
      */
     public function show($id)
     {
-        $accion = AccionOi::find($id);
+        $accion = Accion::find($id);
         if (!$accion) {
             return response()->json(['mensaje' => 'Gestion no encontrada', 'status' => 404], 404);
         }
@@ -52,7 +59,7 @@ class AccionController extends Controller
             'nombre' => 'string|max:255',
             'color' => 'string|max:255',
         ]);
-        $accion = AccionOi::find($id);
+        $accion = Accion::find($id);
 
         if (!$accion) {
             return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
@@ -66,7 +73,7 @@ class AccionController extends Controller
      */
     public function destroy($id)
     {
-        $accion = AccionOi::find($id);
+        $accion = Accion::find($id);
         if (!$accion) {
             return response()->json(['mensaje' => 'Gestion no encontrada', 'status' => 404], 404);
         }
@@ -76,7 +83,7 @@ class AccionController extends Controller
 
     public function restore($id)
     {
-        $accion = AccionOi::withTrashed()->find($id);
+        $accion = Accion::withTrashed()->find($id);
         if (!$accion) {
             return response()->json(['mensaje' => 'Área no encontrada', 'status' => 404], 404);
         }

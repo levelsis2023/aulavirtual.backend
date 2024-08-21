@@ -8,15 +8,23 @@ use Illuminate\Http\Request;
 
 class CapacitacionController extends Controller
 {
-    public function index()
+    public function index($domain_id)
     {
-        $capacitaciones = Capacitacion::where('estado', 1)->get();
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $capacitaciones = Capacitacion::all();
+        } else
+        {
+            $capacitaciones = Capacitacion::where('estado', 1)->get();
         if ($capacitaciones) {
             return response()->json([
                 'responseCode' => 0,
                 'response' => $capacitaciones
             ], 200);
         }
+        }
+
+        
         return response()->json('Record not found', 404);
     }
 

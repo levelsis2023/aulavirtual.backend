@@ -13,10 +13,17 @@ class ReferenceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $domainId = $request->user()->domain_id;
-        $reference = Reference::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $reference = Reference::all();
+        } else
+        {
+            $reference = Reference::paginate(10);
+        }
+
+        
 
         return response()->json($reference, 200);
     }
@@ -29,7 +36,7 @@ class ReferenceController extends Controller
         //
     }
 
-    public function getDataCreate()
+    public function getDataCreate($domain_id)
     {
         $data =[];
         return response()->json(['data' => $data]);

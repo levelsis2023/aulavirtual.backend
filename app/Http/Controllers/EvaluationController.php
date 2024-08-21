@@ -13,9 +13,17 @@ class EvaluationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $evaluation = Evaluation::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $evaluation = Evaluation::all();
+        } else
+        {
+            $evaluation = Evaluation::paginate(10);
+        }
+
+        
 
         return response()->json($evaluation, 200);
     }

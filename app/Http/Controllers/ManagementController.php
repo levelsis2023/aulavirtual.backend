@@ -10,9 +10,17 @@ class ManagementController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $management = management::all();
+        } else
+        {
+            $management = management::paginate(10);
+        }
+
+        return response()->json($management, 200);
     }
 
     /**

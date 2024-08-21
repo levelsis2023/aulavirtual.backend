@@ -10,9 +10,17 @@ class ModalidadPuestoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $modalidadPuesto = ModalidadPuesto::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $modalidadPuesto = ModalidadPuesto::all();
+        } else
+        {
+            $modalidadPuesto = ModalidadPuesto::paginate(10);
+        }
+
+        
         return response()->json($modalidadPuesto, 200);
     }
 

@@ -10,9 +10,17 @@ class VinculoLaboralController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $vinculoLaboral = VinculoLaboral::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $vinculoLaboral = VinculoLaboral::all();
+        } else
+        {
+            $vinculoLaboral = VinculoLaboral::paginate(10);
+        }
+
+        
         return response()->json($vinculoLaboral, 200);
     }
 

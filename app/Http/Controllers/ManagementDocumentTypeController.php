@@ -13,7 +13,12 @@ class ManagementDocumentTypeController extends Controller
 
     public function index(Request $request)
     {
-        $document_type = ManagementDocumentType::query();
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $document_type = document_type::all();
+        } else
+        {
+            $document_type = ManagementDocumentType::query();
 
         if ($request->has('name')) {
             $name           = $request->input('name');
@@ -21,6 +26,9 @@ class ManagementDocumentTypeController extends Controller
         }
 
         $document_type = $document_type->paginate(10);
+        }
+
+        
 
         return response()->json($document_type, 200);
     }

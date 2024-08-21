@@ -21,10 +21,15 @@ class ServiceOrder extends Model
         'valor',
         'state_id',
         'cv_bank_id',
+        'domain_id'
     ];
 
     public function cv_bank()
     {
         return $this->belongsTo(CvBank::class);
+    }
+
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
     }
 }

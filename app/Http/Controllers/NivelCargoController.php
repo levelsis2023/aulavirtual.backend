@@ -10,9 +10,17 @@ class NivelCargoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $nivel = NivelCargo::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $nivel = NivelCargo::all();
+        } else
+        {
+            $nivel = NivelCargo::paginate(10);
+        }
+
+        
 
         return response()->json($nivel, 200);
     }

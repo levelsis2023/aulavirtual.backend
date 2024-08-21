@@ -10,9 +10,17 @@ class EstadoAvanceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $EstadoAvance = EstadoAvance::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $EstadoAvance = EstadoAvance::all();
+        } else
+        {
+            $EstadoAvance = EstadoAvance::paginate(10);
+        }
+
+        
         return response()->json($EstadoAvance, 200);
     }
 

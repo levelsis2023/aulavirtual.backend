@@ -19,7 +19,8 @@ class Behavior extends Model
         'resources',
         'observation',
         'escala_id',
-        'average_behaviors'
+        'average_behaviors',
+        'domain_id'
     ];
 
     public function type_documents()
@@ -30,5 +31,9 @@ class Behavior extends Model
     public function escalas()
     {
         return $this->belongsTo(Behavior::class, 'escala_id');
+    }
+
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
     }
 }

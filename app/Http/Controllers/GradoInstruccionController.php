@@ -10,10 +10,17 @@ class GradoInstruccionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $domainId = $request->user()->domain_id;
-        $gradoInstrucion = GradoInstruccion::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $gradoInstrucion = GradoInstruccion::all();
+        } else
+        {
+            $gradoInstrucion = GradoInstruccion::paginate(10);
+        }
+
+        
 
         return response()->json($gradoInstrucion, 200);
     }

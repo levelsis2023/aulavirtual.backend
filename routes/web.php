@@ -217,10 +217,46 @@ $router->group(['prefix' => 'api/{domain}', 'middleware' => ['validate.domain']]
     $router->group(['prefix' => 'organizacion-institucional'], function() use ($router){
         //Mantenimientos
         $router->get('action/{domain_id}', 'AccionController@index');
-        $router->get('action/get/{id}', 'AccionController@show');
+        $router->get('action/{id}', 'AccionController@show');
         $router->post('action/{domain_id}', 'AccionController@store');
         $router->put('action/{domain_id}/{id}', 'AccionController@update');
-        $router->delete('action/{domain_id}/{id}', 'AccionController@destroy');
+        $router->delete('action/{id}', 'AccionController@destroy');
+        $route->get('cv-bank/{domain_id}', 'CvBankController@filtersData');
+        $route->get('cv-bank/{id}', 'CvBankController@showByUser');
+        $route->get('cv-bank/{domain_id}/{id}', 'CvBankController@dataCreate');
+        $route->resource('cvbank', 'CvBankController@class');
+        $route->get('academic-formation/{id}', 'AcademicFormationController@byBankCv');
+        $route->get('academic-formation/{domain_id}/{id}', 'AcademicFormationController@getDataCreate');
+        $route->post('academic-formation/{id}', 'AcademicFormationController@validateRegister');
+        $route->resource('academic-formation', 'AcademicFormationController@class');
+        $route->get('capacitations/{id}', 'CapacitationController@byBankCv');
+        $route->get('capacitations/{domain_id}/{id}', 'CapacitationController@getDataCreate');
+        $route->post('capacitations/{id}', 'CapacitationController@validateRegister');
+        $route->resource('capacitations', 'CapacitationController@class');
+        $route->get('work-experience/{domain_id}/{id}', 'WorkExperienceController@getDataCreate');
+        $route->get('work-experience/{id}', 'WorkExperienceController@byBankCv');
+        $route->post('work-experience/{domain_id}/{id}', 'WorkExperienceController@validateRegister');
+        $route->post('work-experience/{id}', 'WorkExperienceController@updateData');
+        $route->apiResource('work-experience', 'WorkExperienceController@class')->parameters([
+            'work-experience' => 'id'
+        ]);
+        $route->resource('comportamientos', 'BehaviorController@class');
+        $route->get('references/{id}', 'ReferenceController@byBankCv');
+        $route->get('references/{domain_id}', 'ReferenceController@getDataCreate');
+        $route->resource('references', 'ReferenceController@class');
+        $route->get('evaluation/{id}', 'EvaluationController@byBankCv');
+        $route->apiResource('evaluation', 'EvaluationController@class')->parameters([
+            'evaluation' => 'id'
+        ])->names('api.evaluation');
+
+        $route->get('evaluation-final/{domin_id}', 'EvaluationFinalController@byBankCv');
+        $route->apiResource('evaluation-final', 'EvaluationFinalController@class')->parameters([
+            'evaluation-final' => 'id'
+        ])->names('api.evaluation-final');
+        
+        $route->resource('aprobacion-gestion', 'ManagementController@class');
+        $route->resource('evaluacion-encuesta', 'EvaluationController@class');
+
+        
     });
 });
-

@@ -17,11 +17,17 @@ class CapacitationControllerEo extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $domainId = $request->user()->domain_id;
+        if ($domain_id == NULL || $domain_id == 0) {
 
-        $capacitations = Capacitation::paginate(10);
+            $capacitations = Capacitation::all();
+        } else
+        {
+            $capacitations = Capacitation::paginate(10);
+        }
+
+        
         return response()->json(['capacitations' => $capacitations]);
     }
 
@@ -32,7 +38,7 @@ class CapacitationControllerEo extends Controller
         return response()->json(['capacitations' => $academics]);
     }
 
-    public function getDataCreate(){
+    public function getDataCreate($domain_id, $id){
         $estadoActuales = \App\Models\EstadoActual::all();
         $estadoAvances = \App\Models\EstadoAvance::all();
         $tipoCapacitaciones = \App\Models\TipoCapacitacion::all();

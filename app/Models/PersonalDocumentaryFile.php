@@ -20,7 +20,8 @@ class PersonalDocumentaryFile extends Model
         'observations',
         'fecha',
         'resources',
-        'cv_bank_id'
+        'cv_bank_id',
+        'domain_id'
     ];
 
     // nueva propiedad con la url de la imagen
@@ -40,5 +41,9 @@ class PersonalDocumentaryFile extends Model
     public function cv_bank()
     {
         return $this->belongsTo(CvBank::class);
+    }
+
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
     }
 }

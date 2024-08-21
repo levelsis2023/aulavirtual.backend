@@ -15,6 +15,11 @@ class Escala extends Model
         'nombre',
         'c',
         'color',
+        'domain_id'
 
     ];
+
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
+    }
 }

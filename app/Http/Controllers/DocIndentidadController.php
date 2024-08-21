@@ -10,10 +10,17 @@ class DocIndentidadController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $domainId = $request->user()->domain_id;
-        $docIdentidad = DocIdentidad::paginate(10);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $docIdentidad = DocIdentidad::all();
+        } else
+        {
+            $docIdentidad = DocIdentidad::paginate(10);
+        }
+
+        
         return response()->json($docIdentidad, 200);
     }
 

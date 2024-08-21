@@ -18,7 +18,8 @@ class Evaluation extends Model
         'module',
         'especific_experience',
         'general_experience',
-        'time_validated'
+        'time_validated',
+        'domain_id'
     ];
 
     public function position_level(){
@@ -27,5 +28,9 @@ class Evaluation extends Model
 
     public function scale(){
         return $this->belongsTo(Escala::class, 'scale_id');
+    }
+    
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
     }
 }

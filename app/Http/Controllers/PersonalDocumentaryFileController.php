@@ -13,7 +13,12 @@ class PersonalDocumentaryFileController extends Controller
 {
     public function index(Request $request, $cv_bank_id)
     {
-        $document_file = PersonalDocumentaryFile::with('managementDocumentType')->where('cv_bank_id', $cv_bank_id);
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $document_file = document_file::all();
+        } else
+        {
+            $document_file = PersonalDocumentaryFile::with('managementDocumentType')->where('cv_bank_id', $cv_bank_id);
 
         if ($request->has('activity_name')) {
             $activity_name  = $request->input('activity_name');
@@ -27,6 +32,9 @@ class PersonalDocumentaryFileController extends Controller
 
 
         $document_file = $document_file->paginate(10);
+        }
+
+        
 
         return response()->json($document_file, 200);
     }

@@ -17,6 +17,11 @@ class EvaluationFinal extends Model
         'aceptation_id',
         'position_level_id',
         'scale_id',
-        'institution'
+        'institution',
+        'domain_id'
     ];
+
+    public function domain() {
+        return $this->belongsTo(Domain::class, 'domain_id');
+    }
 }

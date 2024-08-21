@@ -14,9 +14,18 @@ class BehaviorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($domain_id)
     {
-        $behavior = Behavior::paginate(10);
+        
+        if ($domain_id == NULL || $domain_id == 0) {
+
+            $behavior = Behavior::all();
+        } else
+        {
+            $behavior = Behavior::paginate(10);
+        }
+
+        
 
         return response()->json($behavior, 200);
     }
